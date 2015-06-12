@@ -56,3 +56,4 @@ Build
 .dirstamp
 *.gc??
 *.swp
+/build
