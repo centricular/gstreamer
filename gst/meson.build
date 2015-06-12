@@ -163,6 +163,7 @@ gst_c_args = ['-DHAVE_CONFIG_H',
   '-DGST_EXPORTS',
   '-DG_LOG_DOMAIN=g_log_domain_gstreamer',
   '-DGST_DISABLE_DEPRECATED',
+  '-Wno-pedantic',
 ]
 
 libgst = shared_library('gst-1.0', gst_sources, gst_trace_sources,
