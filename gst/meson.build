@@ -132,6 +132,7 @@ gst_headers = [
   'gstregistry.h',
   'gstparse.h'
 ]
+install_headers(gst_headers, subdir : 'gstreamer-1.0/gst')
 
 gst_registry = ['gstregistrybinary.c']
 
