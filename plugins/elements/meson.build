@@ -20,6 +20,7 @@ gst_elements_sources = [
   'gsttee.c',
   'gsttypefindelement.c',
   'gstvalve.c',
+  gstenum_h,
 ]
 
 gst_elements = shared_library('gstcoreelements',
