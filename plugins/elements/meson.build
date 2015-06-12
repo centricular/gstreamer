@@ -25,7 +25,7 @@ gst_elements_sources = [
 
 gst_elements = shared_library('gstcoreelements',
   gst_elements_sources,
-  c_args : '-DHAVE_CONFIG_H',
+  c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
   include_directories : [configinc, libsinc],
   link_with : libgst,
   dependencies : glib_dep,
