@@ -2,7 +2,8 @@ gst_net_sources = [
   'gstnetaddressmeta.c',
   'gstnetclientclock.c',
   'gstnettimepacket.c',
-  'gstnettimeprovider.c'
+  'gstnettimeprovider.c',
+  gstenum_h,
 ]
 
 gstnet = shared_library('gstnet-@0@'.format(apiversion),

@@ -5,6 +5,7 @@ gst_controller_sources = [
   'gstinterpolationcontrolsource.c',
   'gsttriggercontrolsource.c',
   'gstlfocontrolsource.c',
+  gstenum_h,
 ]
 
 gstcontroller = shared_library('gstcontroller-@0@'.format(apiversion),
