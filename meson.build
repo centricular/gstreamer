@@ -145,6 +145,12 @@ flex = find_program('flex')
 bison = find_program('bison')
 
 subdir('gst')
+
+gst_dep = declare_dependency(include_directories : [configinc, libsinc],
+  link_with : libgst,
+  sources : gstenum_h,
+)
+
 subdir('libs')
 subdir('plugins')
 subdir('tools')
