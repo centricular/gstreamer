@@ -135,6 +135,7 @@ configure_file(input : 'config.h.meson',
 
 configinc = include_directories('.')
 libsinc = include_directories('libs')
+privinc = include_directories('gst')
 
 # Find dependencies
 glib_dep = dependency('glib-2.0', version : '>=2.32.0')
@@ -146,7 +147,7 @@ bison = find_program('bison')
 
 subdir('gst')
 
-gst_dep = declare_dependency(include_directories : [configinc, libsinc],
+gst_dep = declare_dependency(include_directories : [configinc, libsinc, privinc],
   link_with : libgst,
   sources : gstenum_h,
 )
