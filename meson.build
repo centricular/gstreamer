@@ -1,7 +1,7 @@
 project('gstreamer-core', 'c')
 
 # Get things pedantic clean and then remove this.
-add_global_arguments('-Wno-pedantic', language : 'c')
+add_global_arguments('-Wno-pedantic', '-std=gnu99', language : 'c')
 
 gst_major = 1
 gst_minor = 4
@@ -145,6 +145,7 @@ privinc = include_directories('gst')
 glib_dep = dependency('glib-2.0', version : '>=2.32.0')
 gobject_dep = dependency('gobject-2.0')
 gmodule_dep = dependency('gmodule-2.0')
+gio_dep = [dependency('gio-2.0'), dependency('gio-unix-2.0')]
 mathlib = find_library('m', required : false)
 flex = find_program('flex')
 bison = find_program('bison')
