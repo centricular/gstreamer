@@ -46,12 +46,64 @@ core_tests = [
   'libs/transform1',
   'tools/gstinspect',
 ]
+registry_tests = [
+  'gst/gst',
+  'gst/gstbin',
+  'gst/gstchildproxy',
+  'gst/gstcontext',
+  'gst/gstcontroller',
+  'gst/gstelement',
+  'gst/gstelementfactory',
+  'gst/gstevent',
+  'gst/gstghostpad',
+  'gst/gstplugin',
+  'gst/gstpreset',
+  'gst/gstquery',
+  'gst/gstregistry',
+  'gst/gsturi',
+  'gst/gstutils',
+  'generic/sinks',
+  'elements/capsfilter',
+  'elements/fakesink',
+  'elements/fakesrc',
+  'elements/fdsrc',
+  'elements/filesink',
+  'elements/filesrc',
+  'elements/funnel',
+  'elements/identity',
+  'elements/multiqueue',
+  'elements/selector',
+  'elements/tee',
+  'elements/queue',
+  'elements/queue2',
+  'elements/valve',
+  'libs/baseparse',
+  'libs/basesrc',
+  'libs/basesink',
+  'libs/controller',
+  'libs/queuearray',
+  'libs/typefindhelper',
+  'pipelines/seek',
+  'pipelines/stress',
+  'pipelines/queue-error',
+]
+
 
 foreach t : core_tests
   exe = executable(t, '@0@.c'.format(t),
     include_directories : [configinc, libsinc],
     c_args : ['-DHAVE_CONFIG_H=1'],
     link_with : [gst_check, gst_net, gst_base, libgst],
+    dependencies : [gio_dep, gobject_dep, gmodule_dep, glib_dep],
+  )
+  test(t, exe)
+endforeach
+
+foreach t : registry_tests
+  exe = executable(t, '@0@.c'.format(t),
+    include_directories : [configinc, libsinc],
+    c_args : ['-DHAVE_CONFIG_H=1', '-DTESTFILE="foobar"'],
+    link_with : [gst_check, gst_controller, gst_net, gst_base, libgst],
     dependencies : [gio_dep, gobject_dep, gmodule_dep, glib_dep],
   )
   test(t, exe)
