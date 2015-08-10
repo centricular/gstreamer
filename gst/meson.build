@@ -134,7 +134,11 @@ gst_headers = [
 ]
 install_headers(gst_headers, subdir : 'gstreamer-1.0/gst')
 
-gst_registry = ['gstregistrybinary.c']
+if not get_option('disable_registry')
+  gst_registry = ['gstregistrybinary.c']
+else
+  gst_registry = []
+endif
 
 configure_file(input : 'gstconfig.h.meson',
   output : 'gstconfig.h',
@@ -166,14 +170,33 @@ gst_c_args = ['-DHAVE_CONFIG_H',
   '-Wno-pedantic',
 ]
 
-libgst = shared_library('gst-1.0', gst_sources, gst_trace_sources,
-  gstenum_h, gstenum_c, grammar, parser, gst_registry,
-  version : gst_version,
-  soversion : soversion,
-  c_args : gst_c_args,
-  include_directories : [configinc,
-    # HACK, change include paths in .y and .l in final version.
-    include_directories('parse')],
-  install : true,
-  dependencies : glib_dep,
-)
+# Make it possible to build both static and shared versions
+# at the same time. By default use shared for unit tests etc.
+# This choice is arbitrary.
+if libtype != 'shared'
+  libgst_static = static_library('gstreamer-1.0', gst_sources, gst_trace_sources,
+    gstenum_h, gstenum_c, grammar, parser, gst_registry,
+    c_args : gst_c_args,
+    include_directories : [configinc,
+      # HACK, change include paths in .y and .l in final version.
+      include_directories('parse')],
+    install : true,
+    dependencies : glib_dep,
+  )
+  libgst = libgst_static
+endif
+
+if libtype != 'static'
+  libgst_shared = shared_library('gstreamer-1.0', gst_sources, gst_trace_sources,
+    gstenum_h, gstenum_c, grammar, parser, gst_registry,
+    version : gst_version,
+    soversion : soversion,
+    c_args : gst_c_args,
+    include_directories : [configinc,
+      # HACK, change include paths in .y and .l in final version.
+      include_directories('parse')],
+    install : true,
+    dependencies : glib_dep,
+  )
+  libgst = libgst_shared
+endif

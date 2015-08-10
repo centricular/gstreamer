@@ -8,12 +8,26 @@ gst_controller_sources = [
   gstenum_h,
 ]
 
-gstcontroller = shared_library('gstcontroller-@0@'.format(apiversion),
-  gst_controller_sources,
-  c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
-  include_directories : [configinc, libsinc],
-  install : true,
-  version : gst_version,
-  soversion : soversion,
-  dependencies : glib_dep,
-)
+if libtype != 'shared'
+  gst_controller_static = static_library('gstcontroller-@0@'.format(apiversion),
+    gst_controller_sources,
+    c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
+    include_directories : [configinc, libsinc],
+    install : true,
+    dependencies : glib_dep,
+  )
+  gstcontroller = gst_controller_static
+endif
+
+if libtype != 'static'
+  gst_controller_shared = shared_library('gstcontroller-@0@'.format(apiversion),
+    gst_controller_sources,
+    c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
+    include_directories : [configinc, libsinc],
+    install : true,
+    version : gst_version,
+    soversion : soversion,
+    dependencies : glib_dep,
+  )
+  gstcontroller = gst_controller_shared
+endif

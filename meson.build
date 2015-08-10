@@ -9,6 +9,7 @@ apiversion = '1.0'
 soversion = 0
 
 prefix = get_option('prefix')
+libtype = get_option('library_format')
 
 cc = meson.get_compiler('c')
 cdata = configuration_data()
