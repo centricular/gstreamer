@@ -167,7 +167,6 @@ gst_c_args = ['-DHAVE_CONFIG_H',
   '-DGST_EXPORTS',
   '-DG_LOG_DOMAIN=g_log_domain_gstreamer',
   '-DGST_DISABLE_DEPRECATED',
-  '-Wno-pedantic',
 ]
 
 # Make it possible to build both static and shared versions
@@ -181,7 +180,8 @@ if libtype != 'shared'
       # HACK, change include paths in .y and .l in final version.
       include_directories('parse')],
     install : true,
-    dependencies : glib_dep,
+    link_with : printf_lib_static,
+    dependencies : [glib_dep, math_dep],
   )
   libgst = libgst_static
 endif
@@ -195,8 +195,9 @@ if libtype != 'static'
     include_directories : [configinc,
       # HACK, change include paths in .y and .l in final version.
       include_directories('parse')],
+    link_with : printf_lib_shared,
     install : true,
-    dependencies : glib_dep,
+    dependencies : [glib_dep, math_dep],
   )
   libgst = libgst_shared
 endif
