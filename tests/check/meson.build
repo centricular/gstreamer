@@ -108,3 +108,15 @@ foreach t : registry_tests
   )
   test(t, exe)
 endforeach
+
+test('gstcpp', executable('gstcpp', 'gst/gstcpp.cc',
+    include_directories : [configinc, libsinc],
+    c_args : ['-DHAVE_CONFIG_H=1', '-DTESTFILE="foobar"'],
+    link_with : [gst_check, gst_controller, gst_net, gst_base, libgst],
+    dependencies : [gio_dep, gobject_dep, gmodule_dep, glib_dep]))
+
+test('gstlibscpp', executable('gstlibscpp', 'libs/gstlibscpp.cc',
+    include_directories : [configinc, libsinc],
+    c_args : ['-DHAVE_CONFIG_H=1', '-DTESTFILE="foobar"'],
+    link_with : [gst_check, gst_controller, gst_net, gst_base, libgst],
+    dependencies : [gio_dep, gobject_dep, gmodule_dep, glib_dep]))
