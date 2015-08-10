@@ -16,18 +16,35 @@ gst_base_sources = [
   gstenum_h,
 ]
 
-gst_base = shared_library('gstbase-@0@'.format(apiversion),
-  gst_base_sources,
-  # This header needs to be generated before building this
-  # target can begin
-  gstenum_h,
-  c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
-  include_directories : [configinc, libsinc],
-  version : gst_version,
-  soversion : soversion,
-  install : true,
-  dependencies : glib_dep,
-)
+if libtype != 'shared'
+  gst_base_static = static_library('gstbase-@0@'.format(apiversion),
+    gst_base_sources,
+    # This header needs to be generated before building this
+    # target can begin
+    gstenum_h,
+    c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
+    include_directories : [configinc, libsinc],
+    install : true,
+    dependencies : glib_dep,
+  )
+  gst_base = gst_base_static
+endif
+
+if libtype != 'static'
+  gst_base_shared = shared_library('gstbase-@0@'.format(apiversion),
+    gst_base_sources,
+    # This header needs to be generated before building this
+    # target can begin
+    gstenum_h,
+    c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
+    include_directories : [configinc, libsinc],
+    version : gst_version,
+    soversion : soversion,
+    install : true,
+    dependencies : glib_dep,
+  )
+  gst_base = gst_base_shared
+endif
 
 install_headers('base.h',
   'gstadapter.h',
