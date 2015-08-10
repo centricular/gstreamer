@@ -16,7 +16,7 @@ if libtype != 'shared'
     install : true,
     dependencies : glib_dep,
   )
-  gstcontroller = gst_controller_static
+  gst_controller = gst_controller_static
 endif
 
 if libtype != 'static'
@@ -29,5 +29,5 @@ if libtype != 'static'
     soversion : soversion,
     dependencies : glib_dep,
   )
-  gstcontroller = gst_controller_shared
+  gst_controller = gst_controller_shared
 endif

@@ -1,5 +1,8 @@
 project('gstreamer-core', 'c')
 
+# Get things pedantic clean and then remove this.
+add_global_arguments('-Wno-pedantic', language : 'c')
+
 gst_major = 1
 gst_minor = 4
 gst_micro = 5
@@ -17,10 +20,10 @@ cdata.set('GST_VERSION_MAJOR', gst_major)
 cdata.set('GST_VERSION_MINOR', gst_minor)
 cdata.set('GST_VERSION_MICRO', gst_micro)
 cdata.set('GST_VERSION_NANO', gst_nano)
-cdata.set('GST_API_VERSION', '"@0@"'.format('apiversion'))
+cdata.set('GST_API_VERSION', '"@0@"'.format(apiversion))
 cdata.set('HAVE_CPU_X86_64', true)
-cdata.set('HOST_CPU', '"x86_64"')
-cdata.set('TARGET_CPU', '"x86_64"')
+cdata.set('HOST_CPU', '"@0@"'.format(host_machine.cpu()))
+cdata.set('TARGET_CPU', '"@0@"'.format(target_machine.cpu()))
 cdata.set('GST_DATADIR', '"@0@/@1@"'.format(prefix, get_option('datadir')))
 cdata.set('LOCALEDIR', '"@0@/@1@"'.format(prefix, get_option('localedir')))
 cdata.set('LIBDIR', '"@0@/@1@"'.format(prefix, get_option('libdir')))
@@ -146,6 +149,8 @@ mathlib = find_library('m', required : false)
 flex = find_program('flex')
 bison = find_program('bison')
 
+math_dep = find_library('m', required : false)
+
 subdir('gst')
 
 gst_dep = declare_dependency(include_directories : [configinc, libsinc, privinc],
@@ -156,3 +161,5 @@ gst_dep = declare_dependency(include_directories : [configinc, libsinc, privinc]
 subdir('libs')
 subdir('plugins')
 subdir('tools')
+
+subdir('tests')
