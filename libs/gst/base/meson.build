@@ -61,6 +61,17 @@ if libtype != 'static'
     dependencies : glib_dep,
   )
   gst_base = gst_base_shared
+  if gir.found()
+    gnome.generate_gir(gst_base_shared,
+      sources : gst_base_sources + gst_base_headers,
+      namespace : 'GstBase',
+      nsversion : gst_version,
+      link_with : libgst_shared,
+      include_directories : [configinc, libsinc, privinc],
+      includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0'],
+      install : true,
+    )
+  endif
 endif
 
 install_headers('base.h',
