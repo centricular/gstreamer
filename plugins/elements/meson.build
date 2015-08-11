@@ -26,7 +26,7 @@ gst_elements_sources = [
 if libtype != 'shared'
   gst_elements_static = static_library('gstcoreelements',
     gst_elements_sources,
-    c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
+    c_args : ['-DHAVE_CONFIG_H', '-DGST_PLUGIN_BUILD_STATIC'],
     include_directories : [configinc, libsinc],
     link_with : libgst,
     dependencies : glib_dep,
@@ -39,7 +39,7 @@ endif
 if libtype != 'static'
   gst_elements_shared = shared_library('gstcoreelements',
     gst_elements_sources,
-    c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
+    c_args : ['-DHAVE_CONFIG_H'],
     include_directories : [configinc, libsinc],
     link_with : libgst,
     dependencies : glib_dep,

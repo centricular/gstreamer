@@ -11,7 +11,7 @@ gst_controller_sources = [
 if libtype != 'shared'
   gst_controller_static = static_library('gstcontroller-@0@'.format(apiversion),
     gst_controller_sources,
-    c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
+    c_args : ['-DHAVE_CONFIG_H','-DGST_PLUGIN_BUILD_STATIC'],
     include_directories : [configinc, libsinc],
     install : true,
     dependencies : glib_dep,
@@ -22,7 +22,7 @@ endif
 if libtype != 'static'
   gst_controller_shared = shared_library('gstcontroller-@0@'.format(apiversion),
     gst_controller_sources,
-    c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
+    c_args : ['-DHAVE_CONFIG_H'],
     include_directories : [configinc, libsinc],
     install : true,
     version : gst_version,
