@@ -163,5 +163,5 @@ gst_dep = declare_dependency(include_directories : [configinc, libsinc, privinc]
 subdir('libs')
 subdir('plugins')
 subdir('tools')
-
+subdir('pkgconfig')
 subdir('tests')
