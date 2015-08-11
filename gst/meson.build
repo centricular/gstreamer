@@ -200,4 +200,13 @@ if libtype != 'static'
     dependencies : [glib_dep, math_dep],
   )
   libgst = libgst_shared
+  if gir.found()
+    gnome.generate_gir(libgst_shared,
+      sources : gst_sources + gst_headers,
+      namespace : 'Gst',
+      nsversion : gst_version,
+      includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0'],
+      install : true,
+    )
+  endif
 endif

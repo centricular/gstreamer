@@ -13,7 +13,24 @@ gst_base_sources = [
   'gstpushsrc.c',
   'gstqueuearray.c',
   'gsttypefindhelper.c',
-  gstenum_h,
+]
+
+gst_base_headers = [
+  'base.h',
+  'gstadapter.h',
+  'gstbaseparse.h',
+  'gstbasesink.h',
+  'gstbasesrc.h',
+  'gstbasetransform.h',
+  'gstbitreader.h',
+  'gstbytereader.h',
+  'gstbytewriter.h',
+  'gstcollectpads.h',
+  'gstdataqueue.h',
+  'gstflowcombiner.h',
+  'gstpushsrc.h',
+  'gstqueuearray.h',
+  'gsttypefindhelper.h',
 ]
 
 if libtype != 'shared'
