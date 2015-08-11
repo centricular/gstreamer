@@ -150,6 +150,8 @@ gio_dep = [dependency('gio-2.0'), dependency('gio-unix-2.0')]
 mathlib = find_library('m', required : false)
 flex = find_program('flex')
 bison = find_program('bison')
+gir = find_program('g-ir-scanner', required : false)
+gnome = import('gnome')
 
 math_dep = find_library('m', required : false)
 
