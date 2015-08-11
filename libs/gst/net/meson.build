@@ -3,12 +3,19 @@ gst_net_sources = [
   'gstnetclientclock.c',
   'gstnettimepacket.c',
   'gstnettimeprovider.c',
-  gstenum_h,
+]
+
+gst_net_headers = [
+ 'gstnet.h',
+ 'gstnetaddressmeta.h',
+ 'gstnetclientclock.h',
+ 'gstnettimepacket.h',
+ 'gstnettimeprovider.h',
 ]
 
 if libtype != 'shared'
   gst_net_static = static_library('gstnet-@0@'.format(apiversion),
-    gst_net_sources,
+    gst_net_sources, gstenum_h,
     c_args : ['-DHAVE_CONFIG_H', '-DGST_PLUGIN_BUILD_STATIC'],
     include_directories : [configinc, libsinc],
     install : true,
@@ -19,8 +26,8 @@ endif
 
 if libtype != 'static'
   gst_net_shared = shared_library('gstnet-@0@'.format(apiversion),
-    gst_net_sources,
-    c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
+    gst_net_sources, gstenum_h,
+    c_args : ['-DHAVE_CONFIG_H'],
     include_directories : [configinc, libsinc],
     version : gst_version,
     soversion : soversion,
@@ -28,4 +35,15 @@ if libtype != 'static'
     dependencies : glib_dep,
   )
   gst_net = gst_net_shared
+  if gir.found()
+    gnome.generate_gir(gst_net_shared,
+      sources : gst_net_sources + gst_net_headers,
+      namespace : 'GstNet',
+      nsversion : gst_version,
+      link_with : libgst_shared,
+      include_directories : [configinc, libsinc, privinc],
+      install : true,
+      extra_args : ['--strip-prefix=Gst', '--add-init-section="gst_init(NULL,NULL);"'],
+    )
+  endif
 endif
