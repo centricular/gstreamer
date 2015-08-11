@@ -9,7 +9,7 @@ gst_net_sources = [
 if libtype != 'shared'
   gst_net_static = static_library('gstnet-@0@'.format(apiversion),
     gst_net_sources,
-    c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
+    c_args : ['-DHAVE_CONFIG_H', '-DGST_PLUGIN_BUILD_STATIC'],
     include_directories : [configinc, libsinc],
     install : true,
     dependencies : glib_dep,

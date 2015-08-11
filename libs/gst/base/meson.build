@@ -22,7 +22,7 @@ if libtype != 'shared'
     # This header needs to be generated before building this
     # target can begin
     gstenum_h,
-    c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
+    c_args : ['-DHAVE_CONFIG_H', '-DGST_PLUGIN_BUILD_STATIC'],
     include_directories : [configinc, libsinc],
     install : true,
     dependencies : glib_dep,
@@ -36,7 +36,7 @@ if libtype != 'static'
     # This header needs to be generated before building this
     # target can begin
     gstenum_h,
-    c_args : ['-DHAVE_CONFIG_H', '-Wno-pedantic'],
+    c_args : ['-DHAVE_CONFIG_H'],
     include_directories : [configinc, libsinc],
     version : gst_version,
     soversion : soversion,

@@ -24,7 +24,7 @@ if libtype != 'shared'
   printf_lib_static = static_library('gstprintf',
     printf_sources,
     include_directories : [configinc],
-    c_args : printf_args,
+    c_args : [printf_args, '-DGST_PLUGIN_BUILD_STATIC'],
     install : true,
     dependencies : [glib_dep],
   )
