@@ -42,8 +42,9 @@ if libtype != 'static'
       nsversion : gst_version,
       link_with : libgst_shared,
       include_directories : [configinc, libsinc, privinc],
+      includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0'],
       install : true,
-      extra_args : ['--strip-prefix=Gst', '--add-init-section="gst_init(NULL,NULL);"'],
+      extra_args : ['--strip-prefix=Gst', '--add-init-section=gst_init(NULL,NULL);'],
     )
   endif
 endif

@@ -48,7 +48,7 @@ if libtype != 'static'
       link_with : libgst_shared,
       include_directories : [configinc, libsinc, privinc],
       install : true,
-      extra_args : ['--strip-prefix=Gst', '--add-init-section="gst_init(NULL,NULL);"'],
+      extra_args : ['--strip-prefix=Gst', '--add-init-section=gst_init(NULL,NULL);'],
     )
   endif
 endif
