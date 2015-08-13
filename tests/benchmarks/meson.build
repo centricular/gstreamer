@@ -13,6 +13,7 @@ benchmarks = [
 
 foreach b : benchmarks
   executable(b, '@0@.c'.format(b),
+    gstenum_h,
     include_directories : [configinc, libsinc],
     link_with : [gst_controller, printf_lib, libgst],
     dependencies : [gobject_dep, gmodule_dep, glib_dep, ],
