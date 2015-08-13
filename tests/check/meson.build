@@ -91,6 +91,7 @@ registry_tests = [
 
 foreach t : core_tests
   exe = executable(t, '@0@.c'.format(t),
+    gstenum_h,
     include_directories : [configinc, libsinc],
     c_args : ['-DHAVE_CONFIG_H=1'],
     link_with : [gst_check, gst_net, gst_base, libgst],
@@ -101,6 +102,7 @@ endforeach
 
 foreach t : registry_tests
   exe = executable(t, '@0@.c'.format(t),
+    gstenum_h,
     include_directories : [configinc, libsinc],
     c_args : ['-DHAVE_CONFIG_H=1', '-DTESTFILE="foobar"'],
     link_with : [gst_check, gst_controller, gst_net, gst_base, libgst],
@@ -110,12 +112,14 @@ foreach t : registry_tests
 endforeach
 
 test('gstcpp', executable('gstcpp', 'gst/gstcpp.cc',
+    gstenum_h,
     include_directories : [configinc, libsinc],
     c_args : ['-DHAVE_CONFIG_H=1', '-DTESTFILE="foobar"'],
     link_with : [gst_check, gst_controller, gst_net, gst_base, libgst],
     dependencies : [gio_dep, gobject_dep, gmodule_dep, glib_dep]))
 
 test('gstlibscpp', executable('gstlibscpp', 'libs/gstlibscpp.cc',
+    gstenum_h,
     include_directories : [configinc, libsinc],
     c_args : ['-DHAVE_CONFIG_H=1', '-DTESTFILE="foobar"'],
     link_with : [gst_check, gst_controller, gst_net, gst_base, libgst],

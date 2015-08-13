@@ -15,5 +15,6 @@ configure_file(input : 'check.h.in',
   configuration : check_cdata)
 
 libcheck = shared_library('check',
+  gstenum_h,
   libcheck_files,
   include_directories : configinc)
