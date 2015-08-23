@@ -181,7 +181,7 @@ if libtype != 'shared'
       include_directories('parse')],
     install : true,
     link_with : printf_lib_static,
-    dependencies : [glib_dep, math_dep],
+    dependencies : [gobject_dep, gmodule_dep, glib_dep, math_dep],
   )
   libgst = libgst_static
 endif
@@ -197,7 +197,7 @@ if libtype != 'static'
       include_directories('parse')],
     link_with : printf_lib_shared,
     install : true,
-    dependencies : [glib_dep, math_dep],
+    dependencies : [gobject_dep, gmodule_dep, glib_dep, math_dep],
   )
   libgst = libgst_shared
   if gir.found()
