@@ -18,6 +18,6 @@ gst_check = shared_library('gstcheck',
   'gsttestclock.c',
   gstenum_h,
   include_directories : [configinc, libsinc],
-  link_with : libcheck,
-  dependencies : [glib_dep],
+  link_with : [libgst, libcheck],
+  dependencies : [gobject_dep, glib_dep],
 )

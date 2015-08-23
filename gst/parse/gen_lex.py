@@ -17,9 +17,9 @@ parse_snippet = '''void priv_gst_parse_yyset_column (int column_no , void * yysc
 void priv_gst_parse_yyset_column (int column_no , void * yyscanner)
 '''
 
-contents = open(hfile).read()
+contents = open(cfile).read()
 if not 'priv_gst_parse_yyget_column' in contents:
     contents = parse_snippet + contents
 contents = prefix + contents
 
-open(hfile, 'w').write(contents)
+open(cfile, 'w').write(contents)

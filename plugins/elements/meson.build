@@ -28,8 +28,8 @@ if libtype != 'shared'
     gst_elements_sources,
     c_args : ['-DHAVE_CONFIG_H', '-DGST_PLUGIN_BUILD_STATIC'],
     include_directories : [configinc, libsinc],
-    link_with : libgst,
-    dependencies : glib_dep,
+    link_with : [gst_base_static, libgst_static],
+    dependencies : [gobject_dep, glib_dep],
     install : true,
     install_dir : '@0@/gstreamer-1.0'.format(get_option('libdir')),
   )
@@ -41,8 +41,8 @@ if libtype != 'static'
     gst_elements_sources,
     c_args : ['-DHAVE_CONFIG_H'],
     include_directories : [configinc, libsinc],
-    link_with : libgst,
-    dependencies : glib_dep,
+    dependencies : [gobject_dep, glib_dep],
+    link_with : [gst_base_shared, libgst_shared],
     install : true,
     install_dir : '@0@/gstreamer-1.0'.format(get_option('libdir')),
   )

@@ -41,8 +41,9 @@ if libtype != 'shared'
     gstenum_h,
     c_args : ['-DHAVE_CONFIG_H', '-DGST_PLUGIN_BUILD_STATIC'],
     include_directories : [configinc, libsinc],
+    link_with : libgst_static,
     install : true,
-    dependencies : glib_dep,
+    dependencies : [gobject_dep, glib_dep],
   )
   gst_base = gst_base_static
 endif
@@ -55,10 +56,11 @@ if libtype != 'static'
     gstenum_h,
     c_args : ['-DHAVE_CONFIG_H'],
     include_directories : [configinc, libsinc],
+    link_with : libgst_shared,
     version : gst_version,
     soversion : soversion,
     install : true,
-    dependencies : glib_dep,
+    dependencies : [gobject_dep, glib_dep],
   )
   gst_base = gst_base_shared
   if gir.found()
