@@ -10,6 +10,12 @@ else
 #  add_global_arguments('-std=c99', language : 'c')
 endif
 
+if host_machine.system() == 'windows'
+  system_link_args = ['-lws2_32']
+else
+  system_link_args = []
+endif
+
 gst_major = 1
 gst_minor = 4
 gst_micro = 5
@@ -152,12 +158,19 @@ privinc = include_directories('gst')
 glib_dep = dependency('glib-2.0', version : '>=2.32.0')
 gobject_dep = dependency('gobject-2.0')
 gmodule_dep = dependency('gmodule-2.0')
-gio_dep = [dependency('gio-2.0'), dependency('gio-unix-2.0')]
+if host_machine.system() == 'windows'
+    gio_dep = dependency('gio-2.0')
+else
+    gio_dep = [dependency('gio-2.0'), dependency('gio-unix-2.0')]
+endif
 mathlib = find_library('m', required : false)
 flex = find_program('flex')
 bison = find_program('bison')
 gir = find_program('g-ir-scanner', required : false)
 gnome = import('gnome')
+
+# Fixme, not very elegant.
+build_gir = gir.found() and not meson.is_cross_build()
 
 math_dep = find_library('m', required : false)
 
