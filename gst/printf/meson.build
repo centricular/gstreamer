@@ -22,7 +22,7 @@ printf_args = [
 
 if libtype != 'shared'
   printf_lib_static = static_library('gstprintf',
-    printf_sources,
+    printf_sources, gstenum_h,
     include_directories : [configinc],
     c_args : [printf_args, '-DGST_PLUGIN_BUILD_STATIC'],
     install : true,
@@ -33,7 +33,7 @@ endif
 
 if libtype != 'static'
   printf_lib_shared = shared_library('gstprintf',
-    printf_sources,
+    printf_sources, gstenum_h,
     include_directories : [configinc],
     c_args : printf_args,
     install : true,
