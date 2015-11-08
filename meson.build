@@ -1,11 +1,12 @@
 project('gstreamer-core', 'c', 'cpp',
-  default_options : ['warning_level=1', 'c_std=none'])
+  default_options : ['warning_level=1', 'c_std=gnu99'])
 
-if build_machine.system() == 'linux'
-  add_global_arguments('-std=gnu99', language: 'c')
-else
-#  add_global_arguments('-std=c99', language : 'c')
-endif
+# FIXME, hardcode gnu99 for now.
+# if build_machine.system() == 'linux'
+#   add_global_arguments('-std=gnu99', language: 'c')
+# else
+# #  add_global_arguments('-std=c99', language : 'c')
+# endif
 
 if host_machine.system() == 'windows'
   system_link_args = ['-lws2_32']
