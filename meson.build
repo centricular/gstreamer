@@ -1,8 +1,5 @@
-project('gstreamer-core', 'c', 'cpp')
-
-# Get things pedantic clean and then remove this.
-add_global_arguments('-Wno-pedantic', language : 'c')
-add_global_arguments('-Wno-pedantic', language : 'cpp')
+project('gstreamer-core', 'c', 'cpp',
+  default_options : ['warning_level=1', 'c_std=none'])
 
 if build_machine.system() == 'linux'
   add_global_arguments('-std=gnu99', language: 'c')
