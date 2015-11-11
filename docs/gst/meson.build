@@ -1,7 +1,3 @@
-configure_file(input : '../version.entities.in',
-  output : 'version.entities',
-  configuration : docconf)
-
 # disabled for now because include paths don't work
 #gnome.gtkdoc('gst',
 #  main_sgml : 'gstreamer-docs.sgml',
