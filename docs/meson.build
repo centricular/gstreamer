@@ -9,3 +9,4 @@ configure_file(input : 'version.entities.in',
   configuration : docconf)
 
 subdir('gst')
+subdir('libs')
