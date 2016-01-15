@@ -46,7 +46,7 @@ if libtype != 'static'
     gnome.generate_gir(gst_net_shared,
       sources : gst_net_sources + gst_net_headers,
       namespace : 'GstNet',
-      nsversion : gst_version,
+      nsversion : apiversion,
       link_with : libgst_shared,
       include_directories : [configinc, libsinc, privinc],
       includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0'],

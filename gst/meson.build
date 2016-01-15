@@ -217,7 +217,7 @@ if libtype != 'static'
     gnome.generate_gir(libgst_shared,
       sources : gst_sources + gst_headers,
       namespace : 'Gst',
-      nsversion : gst_version,
+      nsversion : apiversion,
       includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0'],
       install : true,
     )
