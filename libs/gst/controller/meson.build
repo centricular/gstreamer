@@ -46,7 +46,7 @@ if libtype != 'static'
     gnome.generate_gir(gst_controller_shared,
       sources : gst_controller_sources + gst_controller_headers,
       namespace : 'GstController',
-      nsversion : gst_version,
+      nsversion : apiversion,
       link_with : libgst_shared,
       include_directories : [configinc, libsinc, privinc],
       install : true,
