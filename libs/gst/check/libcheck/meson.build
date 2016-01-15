@@ -8,13 +8,35 @@ libcheck_files = [
   'check_print.c',
   'check_run.c',
   'check_str.c',
+  'libcompat.c'
 ]
+
+if not cdata.has('HAVE_ALARM')
+  libcheck_files += [ 'alarm.c' ]
+endif
+
+if not cdata.has('HAVE_CLOCK_GETTIME')
+  libcheck_files += [ 'clock_gettime.c' ]
+endif
+
+if not cdata.has('HAVE_DECL_STRSIGNAL')
+  libcheck_files += [ 'strsignal.c' ]
+endif
+
+rt_lib = find_library('rt', required : false)
+if not rt_lib.found()
+  libcheck_files += [ 'timer_create.c', 'timer_settime.c', 'timer_delete.c' ]
+endif
 
 configure_file(input : 'check.h.in',
   output : 'check.h',
   configuration : check_cdata)
 
+internal_check_h_inc = include_directories('..')
+
 libcheck = shared_library('check',
   gstenum_h,
   libcheck_files,
-  include_directories : configinc)
+  include_directories : [ configinc, internal_check_h_inc ],
+  dependencies : [ rt_lib ],
+  c_args: [ '-DHAVE_CONFIG_H' ])

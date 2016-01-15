@@ -429,3 +429,13 @@
 
 /* Define to `unsigned int' if <sys/types.h> does not define. */
 #mesondefine size_t
+
+#mesondefine HAVE_GETPID
+#mesondefine HAVE__GETPID
+#mesondefine HAVE_DECL_STRDUP
+#mesondefine HAVE__STRDUP
+#mesondefine HAVE_MKSTEMP
+#mesondefine HAVE_FORK
+#mesondefine HAVE_ALARM
+#mesondefine HAVE_DECL_LOCALTIME_R
+#mesondefine HAVE_DECL_STRSIGNAL

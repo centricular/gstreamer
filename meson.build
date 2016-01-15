@@ -144,6 +144,37 @@ if cc.has_type('ptrdiff_t')
   cdata.set('HAVE_PTRDIFF_T')
 endif
 
+# -------------------------------------------------------------------------------------
+# config.h things needed by libcheck (FIXME: move into the libcheck meson.build) (tpm)
+# -------------------------------------------------------------------------------------
+# FIXME: check if it is _getpid or getpid on windows (tpm)
+if cc.has_function('getpid', prefix : '#include <sys/types.h>\n#include <unistd.h>')
+  cdata.set('HAVE_GETPID', 1)
+elif cc.has_function('_getpid', prefix : '#include <process.h>')
+  cdata.set('HAVE__GETPID', 1)
+endif
+# FIXME: check for _strdup() but how/where and with what includes? (windows?) (tpm)
+if cc.has_function('strdup', prefix : '#include <string.h>')
+  cdata.set('HAVE_DECL_STRDUP', 1)
+elif cc.has_function('_strdup', prefix : '#include <string.h>')
+  cdata.set('HAVE__STRDUP', 1)
+endif
+if cc.has_function('mkstemp', prefix : '#include <stdlib.h>')
+  cdata.set('HAVE_MKSTEMP', 1)
+endif
+if host_machine.system() != 'windows'
+  cdata.set('HAVE_FORK', 1)
+endif
+if cc.has_function('alarm', prefix : '#include <unistd.h>')
+  cdata.set('HAVE_ALARM', 1)
+endif
+if cc.has_function('localtime_r', prefix : '#include <time.h>')
+  cdata.set('HAVE_DECL_LOCALTIME_R', 1)
+endif
+if cc.has_function('strsignal', prefix : '#include <string.h>')
+  cdata.set('HAVE_DECL_STRSIGNAL', 1)
+endif
+
 configure_file(input : 'config.h.meson',
   output : 'config.h',
   configuration : cdata)
