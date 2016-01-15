@@ -1,16 +1,21 @@
 gst_net_sources = [
   'gstnetaddressmeta.c',
   'gstnetclientclock.c',
+  'gstnetcontrolmessagemeta.c',
   'gstnettimepacket.c',
   'gstnettimeprovider.c',
+  'gstptpclock.c',
+  'gstntppacket.c',
 ]
 
 gst_net_headers = [
  'gstnet.h',
  'gstnetaddressmeta.h',
  'gstnetclientclock.h',
+ 'gstnetcontrolmessagemeta.h',
  'gstnettimepacket.h',
  'gstnettimeprovider.h',
+ 'gstptpclock.h',
 ]
 
 if libtype != 'shared'
@@ -18,7 +23,7 @@ if libtype != 'shared'
     gst_net_sources, gstenum_h,
     c_args : ['-DHAVE_CONFIG_H', '-DGST_PLUGIN_BUILD_STATIC'],
     include_directories : [configinc, libsinc],
-    link_with : libgst_static,
+    link_with : [ gst_base_static, libgst_static ],
     install : true,
     dependencies : [gobject_dep, gio_dep, glib_dep],
   )
@@ -30,7 +35,7 @@ if libtype != 'static'
     gst_net_sources, gstenum_h,
     c_args : ['-DHAVE_CONFIG_H'],
     include_directories : [configinc, libsinc],
-    link_with : libgst_shared,
+    link_with : [ gst_base_shared, libgst_shared ],
     version : gst_version,
     soversion : soversion,
     install : true,
