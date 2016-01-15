@@ -80,8 +80,11 @@ check_headers = [['dlfcn.h','HAVE_DLFCN_H'],
   ['ucontext.h', 'HAVE_UCONTEXT_H'],
   ['unistd.h', 'HAVE_UNISTD_H'],
   ['valgrind/valgrind.h', 'HAVE_VALGRIND_VALGRIND_H'],
-  ['winsock2.h', 'HAVE_WINSOCK2_H'],
 ]
+
+if host_machine.system() == 'windows'
+  check_headers += [ ['winsock2.h', 'HAVE_WINSOCK2_H'] ]
+endif
 
 foreach h : check_headers
   if cc.has_header(h.get(0))
