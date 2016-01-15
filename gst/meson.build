@@ -11,6 +11,7 @@ gst_sources = [
   'gstcapsfeatures.c',
   'gstchildproxy.c',
   'gstclock.c',
+  'gstclock-linreg.c',
   'gstcontext.c',
   'gstcontrolbinding.c',
   'gstcontrolsource.c',
@@ -56,6 +57,9 @@ gst_sources = [
   'gsttaskpool.c',
   'gsttoc.c',
   'gsttocsetter.c',
+  'gsttracer.c',
+  'gsttracerfactory.c',
+  'gsttracerutils.c',
   'gsttypefind.c',
   'gsttypefindfactory.c',
   'gsturi.c',
@@ -64,7 +68,11 @@ gst_sources = [
   'gstparse.c',
 ]
 
-gst_trace_sources = ['gsttrace.c']
+if not get_option('disable_trace')
+  gst_trace_sources = ['gsttrace.c']
+else
+  gst_trace_sources = [ ]
+endif
 
 gst_headers = [
   'gst.h',
@@ -124,6 +132,9 @@ gst_headers = [
   'gsttaskpool.h',
   'gsttoc.h',
   'gsttocsetter.h',
+  'gsttracer.h',
+  'gsttracerfactory.h',
+  'gsttracerutils.h',
   'gsttypefind.h',
   'gsttypefindfactory.h',
   'gsturi.h',

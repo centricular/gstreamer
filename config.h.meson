@@ -67,6 +67,8 @@
 /* location of the installed gst-plugin-scanner */
 #mesondefine GST_PLUGIN_SCANNER_INSTALLED
 
+#mesondefine GST_PTP_HELPER_INSTALLED
+
 /* Define to 1 if you have the MacOS X function CFLocaleCopyCurrent in the
    CoreFoundation framework. */
 #mesondefine HAVE_CFLOCALECOPYCURRENT

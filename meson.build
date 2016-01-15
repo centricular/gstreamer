@@ -15,9 +15,9 @@ else
 endif
 
 gst_major = 1
-gst_minor = 4
-gst_micro = 5
-gst_nano = 99 # ???
+gst_minor = 6
+gst_micro = 0
+gst_nano = 0 # ???
 gst_version = '@0@.@1@.@2@'.format(gst_major, gst_minor, gst_micro)
 apiversion = '1.0'
 soversion = 0
@@ -55,6 +55,7 @@ cdata.set('PLUGINDIR', '"@0@/lib/gstreamer-1.0"'.format(get_option('prefix')))
 cdata.set('VERSION', '"@0@"'.format(gst_version))
 cdata.set('MEMORY_ALIGNMENT_MALLOC', 1)
 cdata.set('GST_PLUGIN_SCANNER_INSTALLED', '"TMP_FIXME"')
+cdata.set('GST_PTP_HELPER_INSTALLED', '"TMP_FIXME"')
 
 check_headers = [['dlfcn.h','HAVE_DLFCN_H'],
   ['inttypes.h', 'HAVE_INTTYPES_H'],
