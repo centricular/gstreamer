@@ -1,5 +1,8 @@
 project('gstreamer-core', 'c', 'cpp',
-  default_options : ['warning_level=1', 'c_std=gnu99'])
+  meson_version : '>= 0.27.0',
+  default_options : [ 'warning_level=1',
+                      'c_std=gnu99',
+                      'buildtype=debugoptimized' ])
 
 # FIXME, hardcode gnu99 for now.
 # if build_machine.system() == 'linux'
