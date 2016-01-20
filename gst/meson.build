@@ -189,7 +189,7 @@ gst_c_args = ['-DHAVE_CONFIG_H',
 if libtype != 'shared'
   libgst_static = static_library('gstreamer-1.0', gst_sources, gst_trace_sources,
     gstenum_h, gstenum_c, grammar, parser, gst_registry,
-    c_args : [gst_c_args, '-DGST_PLUGIN_BUILD_STATIC'],
+    c_args : [gst_c_args],
     include_directories : [configinc,
       # HACK, change include paths in .y and .l in final version.
       include_directories('parse')],
