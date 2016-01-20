@@ -194,7 +194,7 @@ if libtype != 'shared'
       # HACK, change include paths in .y and .l in final version.
       include_directories('parse')],
     install : true,
-    link_with : printf_lib_static,
+    link_with : printf_lib,
     link_args : system_link_args,
     dependencies : [gobject_dep, gmodule_dep, glib_dep, math_dep],
   )
@@ -210,7 +210,7 @@ if libtype != 'static'
     include_directories : [configinc,
       # HACK, change include paths in .y and .l in final version.
       include_directories('parse')],
-    link_with : printf_lib_shared,
+    link_with : printf_lib,
     link_args : system_link_args,
     install : true,
     dependencies : [gobject_dep, gmodule_dep, glib_dep, math_dep],
