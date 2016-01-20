@@ -1,6 +1,3 @@
-# This behaves differently to the original. It builds
-# as a standalone library for simplicity.
-
 printf_sources = [
   'asnprintf.c',
   'printf-args.c',
@@ -20,24 +17,10 @@ printf_args = [
   '-DHAVE_CONFIG_H=1',
 ]
 
-if libtype != 'shared'
-  printf_lib_static = static_library('gstprintf',
+# FIXME: need a way to find portable c_args for -fPIC
+printf_lib = static_library('gstprintf',
     printf_sources, gstenum_h,
     include_directories : [configinc],
-    c_args : [printf_args, '-DGST_PLUGIN_BUILD_STATIC'],
-    install : true,
-    dependencies : [glib_dep],
-  )
-  printf_lib = printf_lib_static
-endif
-
-if libtype != 'static'
-  printf_lib_shared = shared_library('gstprintf',
-    printf_sources, gstenum_h,
-    include_directories : [configinc],
-    c_args : printf_args,
-    install : true,
-    dependencies : [glib_dep],
-  )
-  printf_lib = printf_lib_shared
-endif
+    c_args : [printf_args, '-DGST_PLUGIN_BUILD_STATIC', '-fPIC'],
+    install : false,
+    dependencies : [glib_dep])
