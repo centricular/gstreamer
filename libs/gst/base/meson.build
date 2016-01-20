@@ -63,15 +63,19 @@ if libtype != 'static'
     dependencies : [gobject_dep, glib_dep],
   )
   gst_base = gst_base_shared
-  if gir.found()
+  if build_gir
     gnome.generate_gir(gst_base_shared,
       sources : gst_base_sources + gst_base_headers,
       namespace : 'GstBase',
       nsversion : apiversion,
+      identifier_prefix : 'Gst',
+      symbol_prefix : 'gst',
+      export_packages : 'gstreamer-base-1.0',
       link_with : libgst_shared,
       include_directories : [configinc, libsinc, privinc],
-      includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0'],
+      includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0', 'Gst-1.0'],
       install : true,
+      extra_args : gir_init_section,
     )
   endif
 endif

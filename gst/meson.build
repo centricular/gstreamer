@@ -216,13 +216,17 @@ if libtype != 'static'
     dependencies : [gobject_dep, gmodule_dep, glib_dep, math_dep],
   )
   libgst = libgst_shared
-  if gir.found()
+  if build_gir
     gnome.generate_gir(libgst_shared,
       sources : gst_sources + gst_headers,
       namespace : 'Gst',
       nsversion : apiversion,
-      includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0'],
+      identifier_prefix : 'Gst',
+      symbol_prefix : 'gst',
+      export_packages : 'gstreamer-1.0',
+      includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0' ],
       install : true,
+      extra_args : gir_init_section + [ '--c-include=gst/gst.h' ],
     )
   endif
 endif

@@ -42,16 +42,19 @@ if libtype != 'static'
     dependencies : [gobject_dep, gio_dep, glib_dep],
   )
   gst_net = gst_net_shared
-  if gir.found()
+  if build_gir
     gnome.generate_gir(gst_net_shared,
       sources : gst_net_sources + gst_net_headers,
       namespace : 'GstNet',
       nsversion : apiversion,
+      identifier_prefix : 'Gst',
+      symbol_prefix : 'gst',
+      export_packages : 'gstreamer-net-1.0',
       link_with : libgst_shared,
       include_directories : [configinc, libsinc, privinc],
-      includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0'],
+      includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0', 'Gio-2.0', 'Gst-1.0'],
       install : true,
-      extra_args : ['--strip-prefix=Gst', '--add-init-section=gst_init(NULL,NULL);'],
+      extra_args : gir_init_section,
     )
   endif
 endif
