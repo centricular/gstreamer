@@ -208,6 +208,8 @@ gnome = import('gnome')
 # Fixme, not very elegant.
 build_gir = gir.found() and not meson.is_cross_build()
 
+gir_init_section = [ '--add-init-section=extern void gst_init(gint*,gchar**); gst_init(NULL,NULL);' ]
+
 math_dep = find_library('m', required : false)
 
 subdir('gst')
