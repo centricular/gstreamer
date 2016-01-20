@@ -20,7 +20,7 @@ if libtype != 'shared'
   gst_controller_static = static_library('gstcontroller-@0@'.format(apiversion),
     gst_controller_sources,
     gstenum_h,
-    c_args : ['-DHAVE_CONFIG_H','-DGST_PLUGIN_BUILD_STATIC'],
+    c_args : ['-DHAVE_CONFIG_H'],
     include_directories : [configinc, libsinc],
     link_with : libgst,
     install : true,

@@ -21,7 +21,7 @@ gst_net_headers = [
 if libtype != 'shared'
   gst_net_static = static_library('gstnet-@0@'.format(apiversion),
     gst_net_sources, gstenum_h,
-    c_args : ['-DHAVE_CONFIG_H', '-DGST_PLUGIN_BUILD_STATIC'],
+    c_args : ['-DHAVE_CONFIG_H'],
     include_directories : [configinc, libsinc],
     link_with : [ gst_base_static, libgst_static ],
     install : true,

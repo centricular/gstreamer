@@ -21,6 +21,6 @@ printf_args = [
 printf_lib = static_library('gstprintf',
     printf_sources, gstenum_h,
     include_directories : [configinc],
-    c_args : [printf_args, '-DGST_PLUGIN_BUILD_STATIC', '-fPIC'],
+    c_args : [printf_args, '-fPIC'],
     install : false,
     dependencies : [glib_dep])
