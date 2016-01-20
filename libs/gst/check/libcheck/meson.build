@@ -23,6 +23,7 @@ if not cdata.has('HAVE_DECL_STRSIGNAL')
   libcheck_files += [ 'strsignal.c' ]
 endif
 
+# FIXME: check for symbols timer_create, timer_settime, timer_delete as well
 rt_lib = find_library('rt', required : false)
 if not rt_lib.found()
   libcheck_files += [ 'timer_create.c', 'timer_settime.c', 'timer_delete.c' ]
@@ -34,9 +35,9 @@ configure_file(input : 'check.h.in',
 
 internal_check_h_inc = include_directories('..')
 
-libcheck = shared_library('check',
+libcheck = static_library('check',
   gstenum_h,
   libcheck_files,
   include_directories : [ configinc, internal_check_h_inc ],
   dependencies : [ rt_lib ],
-  c_args: [ '-DHAVE_CONFIG_H' ])
+  c_args: [ '-DHAVE_CONFIG_H', '-fPIC' ])
