@@ -24,7 +24,6 @@ if not cdata.has('HAVE_DECL_STRSIGNAL')
 endif
 
 # FIXME: check for symbols timer_create, timer_settime, timer_delete as well
-rt_lib = find_library('rt', required : false)
 if not rt_lib.found()
   libcheck_files += [ 'timer_create.c', 'timer_settime.c', 'timer_delete.c' ]
 endif
