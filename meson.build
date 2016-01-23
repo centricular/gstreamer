@@ -21,7 +21,11 @@ gst_major = 1
 gst_minor = 7
 gst_micro = 1
 gst_nano = 1
-gst_version = '@0@.@1@.@2@'.format(gst_major, gst_minor, gst_micro)
+if gst_nano == 0
+  gst_version = '@0@.@1@.@2@'.format(gst_major, gst_minor, gst_micro)
+else
+  gst_version = '@0@.@1@.@2@.@3@'.format(gst_major, gst_minor, gst_micro, gst_nano)
+endif
 apiversion = '1.0'
 soversion = 0
 
