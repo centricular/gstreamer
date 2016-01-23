@@ -196,7 +196,7 @@ if libtype != 'shared'
     install : true,
     link_with : printf_lib,
     link_args : system_link_args,
-    dependencies : [gobject_dep, gmodule_dep, glib_dep, math_dep],
+    dependencies : [gobject_dep, gmodule_dep, glib_dep, mathlib],
   )
   libgst = libgst_static
 endif
@@ -213,7 +213,7 @@ if libtype != 'static'
     link_with : printf_lib,
     link_args : system_link_args,
     install : true,
-    dependencies : [gobject_dep, gmodule_dep, glib_dep, math_dep],
+    dependencies : [gobject_dep, gmodule_dep, glib_dep, mathlib],
   )
   libgst = libgst_shared
   if build_gir
