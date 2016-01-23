@@ -18,9 +18,9 @@ else
 endif
 
 gst_major = 1
-gst_minor = 6
-gst_micro = 0
-gst_nano = 0 # ???
+gst_minor = 7
+gst_micro = 1
+gst_nano = 1
 gst_version = '@0@.@1@.@2@'.format(gst_major, gst_minor, gst_micro)
 apiversion = '1.0'
 soversion = 0
@@ -74,6 +74,7 @@ check_headers = [['dlfcn.h','HAVE_DLFCN_H'],
   ['sys/socket.h', 'HAVE_SYS_SOCKET_H'],
   ['sys/stat.h', 'HAVE_SYS_STAT_H'],
   ['sys/times.h', 'HAVE_SYS_TIMES_H'],
+  ['sys/time.h', 'HAVE_SYS_TIME_H'],
   ['sys/types.h', 'HAVE_SYS_TYPES_H'],
   ['sys/utsname.h', 'HAVE_SYS_UTSNAME_H'],
   ['sys/wait.h', 'HAVE_SYS_WAIT_H'],
@@ -145,6 +146,9 @@ endif
 if cc.has_function('getpagesize', prefix : '#include<unistd.h>')
   cdata.set('HAVE_GETPAGESIZE', 1)
 endif
+if cc.has_function('clock_gettime', prefix : '#include <time.h>')
+  cdata.set('HAVE_CLOCK_GETTIME', 1)
+endif
 
 if cc.has_type('ptrdiff_t')
   cdata.set('HAVE_PTRDIFF_T')
@@ -200,6 +204,7 @@ else
     gio_dep = [dependency('gio-2.0'), dependency('gio-unix-2.0')]
 endif
 mathlib = find_library('m', required : false)
+rt_lib = find_library('rt', required : false) # clock_gettime
 flex = find_program('flex')
 bison = find_program('bison')
 gir = find_program('g-ir-scanner', required : false)
