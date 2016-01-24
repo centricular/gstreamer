@@ -46,9 +46,6 @@ cdata.set('GST_VERSION_MINOR', gst_version_minor)
 cdata.set('GST_VERSION_MICRO', gst_version_micro)
 cdata.set('GST_VERSION_NANO', gst_version_nano)
 cdata.set('GST_API_VERSION', '"@0@"'.format(apiversion))
-cdata.set('HAVE_CPU_X86_64', true)
-cdata.set('HOST_CPU', '"@0@"'.format(host_machine.cpu()))
-cdata.set('TARGET_CPU', '"@0@"'.format(target_machine.cpu()))
 cdata.set('GST_DATADIR', '"@0@/@1@"'.format(prefix, get_option('datadir')))
 cdata.set('LOCALEDIR', '"@0@/@1@"'.format(prefix, get_option('localedir')))
 cdata.set('LIBDIR', '"@0@/@1@"'.format(prefix, get_option('libdir')))
@@ -67,9 +64,34 @@ cdata.set('PACKAGE_URL', '""')
 cdata.set('PACKAGE_VERSION', '"@0@"'.format(gst_version))
 cdata.set('PLUGINDIR', '"@0@/lib/gstreamer-1.0"'.format(get_option('prefix')))
 cdata.set('VERSION', '"@0@"'.format(gst_version))
+# FIXME: --with-memory-alignment],[8,N,malloc,pagesize (default is 32)]) option
 cdata.set('MEMORY_ALIGNMENT_MALLOC', 1)
 cdata.set('GST_PLUGIN_SCANNER_INSTALLED', '"@0@/gst-plugin-scanner"'.format(helpers_install_dir))
 cdata.set('GST_PTP_HELPER_INSTALLED', '"@0@/gst-ptp-helper"'.format(helpers_install_dir))
+
+# These are only needed/used by the ABI tests
+host_defines = [
+  [ 'x86', 'HAVE_CPU_I386' ],
+  [ 'x86_64', 'HAVE_CPU_X86_64' ],
+  [ 'arm', 'HAVE_CPU_ARM' ],
+  [ 'aarch64', 'HAVE_CPU_AARCH64' ],
+  [ 'mips', 'HAVE_CPU_MIPS' ],
+  [ 'powerpc', 'HAVE_CPU_PPC' ],
+  [ 'powerpc64', 'HAVE_CPU_PPC64' ],
+  [ 'alpha', 'HAVE_CPU_ALPHA' ],
+  [ 'sparc', 'HAVE_CPU_SPARC' ],
+  [ 'ia64', 'HAVE_CPU_IA64' ],
+  [ 'hppa', 'HAVE_CPU_HPPA' ],
+  [ 'm68k', 'HAVE_CPU_M68K' ],
+  [ 's390', 'HAVE_CPU_S390' ],
+]
+foreach h : host_defines
+  if h.get(0) == host_machine.cpu()
+    cdata.set(h.get(1), 1)
+  endif
+endforeach
+# FIXME: should really be called HOST_CPU or such
+cdata.set('TARGET_CPU', '"@0@"'.format(host_machine.cpu()))
 
 check_headers = [['dlfcn.h','HAVE_DLFCN_H'],
   ['inttypes.h', 'HAVE_INTTYPES_H'],
