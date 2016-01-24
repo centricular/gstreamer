@@ -4,4 +4,9 @@ gst_plugin_scanner = executable('gst-plugin-scanner',
   include_directories : [configinc],
   dependencies : [gobject_dep, gmodule_dep, glib_dep, mathlib],
   link_with : [libgst, printf_lib],
+  install_dir : helpers_install_dir,
+  install: true,
 )
+
+# FIXME: gst-ptp-helper
+# FIXME: gst-completion-helper

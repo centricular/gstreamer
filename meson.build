@@ -32,6 +32,9 @@ soversion = 0
 prefix = get_option('prefix')
 libtype = get_option('library_format')
 
+libdir = get_option('libdir')
+helpers_install_dir = '@0@/@1@/gstreamer1.0/gstreamer-1.0/'.format(prefix,libdir)
+
 cc = meson.get_compiler('c')
 cdata = configuration_data()
 cdata.set('GST_VERSION_MAJOR', gst_major)
@@ -61,8 +64,8 @@ cdata.set('PACKAGE_VERSION', '"@0@"'.format(gst_version))
 cdata.set('PLUGINDIR', '"@0@/lib/gstreamer-1.0"'.format(get_option('prefix')))
 cdata.set('VERSION', '"@0@"'.format(gst_version))
 cdata.set('MEMORY_ALIGNMENT_MALLOC', 1)
-cdata.set('GST_PLUGIN_SCANNER_INSTALLED', '"TMP_FIXME"')
-cdata.set('GST_PTP_HELPER_INSTALLED', '"TMP_FIXME"')
+cdata.set('GST_PLUGIN_SCANNER_INSTALLED', '"@0@/gst-plugin-scanner"'.format(helpers_install_dir))
+cdata.set('GST_PTP_HELPER_INSTALLED', '"@0@/gst-ptp-helper"'.format(helpers_install_dir))
 
 check_headers = [['dlfcn.h','HAVE_DLFCN_H'],
   ['inttypes.h', 'HAVE_INTTYPES_H'],
