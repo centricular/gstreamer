@@ -36,7 +36,7 @@ if libtype != 'static'
     c_args : ['-DHAVE_CONFIG_H'],
     include_directories : [configinc, libsinc],
     link_with : [ gst_base_shared, libgst_shared ],
-    version : gst_version,
+    version : libversion,
     soversion : soversion,
     install : true,
     dependencies : [gobject_dep, gio_dep, glib_dep],

@@ -1,15 +1,9 @@
-project('gstreamer-core', 'c', 'cpp',
+project('gstreamer', 'c', 'cpp',
+  version : '1.7.1.1',
   meson_version : '>= 0.27.0',
   default_options : [ 'warning_level=1',
                       'c_std=gnu99',
                       'buildtype=debugoptimized' ])
-
-# FIXME, hardcode gnu99 for now.
-# if build_machine.system() == 'linux'
-#   add_global_arguments('-std=gnu99', language: 'c')
-# else
-# #  add_global_arguments('-std=c99', language : 'c')
-# endif
 
 if host_machine.system() == 'windows'
   system_link_args = ['-lws2_32']
@@ -17,17 +11,27 @@ else
   system_link_args = []
 endif
 
-gst_major = 1
-gst_minor = 7
-gst_micro = 1
-gst_nano = 1
-if gst_nano == 0
-  gst_version = '@0@.@1@.@2@'.format(gst_major, gst_minor, gst_micro)
+gst_version = meson.project_version()
+version_arr = gst_version.split('.')
+gst_version_major = version_arr[0]
+gst_version_minor = version_arr[1]
+gst_version_micro = version_arr[2]
+if version_arr.length() == 4
+  gst_version_nano = version_arr[3]
 else
-  gst_version = '@0@.@1@.@2@.@3@'.format(gst_major, gst_minor, gst_micro, gst_nano)
+  gst_version_nano = 0
 endif
+
 apiversion = '1.0'
 soversion = 0
+# maintaining compatibility with the previous libtool versioning
+# current = minor * 100 + micro
+# FIXME: should be able to convert string to int somehow so we can just do maths
+if gst_version_micro == '0' or gst_version_micro == '1' or gst_version_micro == '2' or gst_version_micro == '3' or gst_version_micro == '4' or gst_version_micro == '5' or gst_version_micro == '6' or gst_version_micro == '7' or gst_version_micro == '8' or gst_version_micro == '9'
+  libversion = '0.' + gst_version_minor + '0' + gst_version_micro + '.0'
+else
+  libversion = '0.' + gst_version_minor + gst_version_micro + '.0'
+endif
 
 prefix = get_option('prefix')
 libtype = get_option('library_format')
@@ -37,10 +41,10 @@ helpers_install_dir = '@0@/@1@/gstreamer1.0/gstreamer-1.0/'.format(prefix,libdir
 
 cc = meson.get_compiler('c')
 cdata = configuration_data()
-cdata.set('GST_VERSION_MAJOR', gst_major)
-cdata.set('GST_VERSION_MINOR', gst_minor)
-cdata.set('GST_VERSION_MICRO', gst_micro)
-cdata.set('GST_VERSION_NANO', gst_nano)
+cdata.set('GST_VERSION_MAJOR', gst_version_major)
+cdata.set('GST_VERSION_MINOR', gst_version_minor)
+cdata.set('GST_VERSION_MICRO', gst_version_micro)
+cdata.set('GST_VERSION_NANO', gst_version_nano)
 cdata.set('GST_API_VERSION', '"@0@"'.format(apiversion))
 cdata.set('HAVE_CPU_X86_64', true)
 cdata.set('HOST_CPU', '"@0@"'.format(host_machine.cpu()))

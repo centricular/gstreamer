@@ -204,7 +204,7 @@ endif
 if libtype != 'static'
   libgst_shared = shared_library('gstreamer-1.0', gst_sources, gst_trace_sources,
     gstenum_h, gstenum_c, grammar, parser, gst_registry,
-    version : gst_version,
+    version : libversion,
     soversion : soversion,
     c_args : gst_c_args,
     include_directories : [configinc,
