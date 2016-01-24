@@ -1,9 +1,12 @@
 have_trace = not get_option('disable_trace')
 have_registry = not get_option('disable_registry')
+have_debug = true # FIXME
+have_parse = true # FIXME
 
 # tests and condition when to skip the test
 core_tests = [
   [ 'gst/gst', not have_registry ],
+  [ 'gst/gstabi', not have_registry or not have_trace ],
   [ 'gst/gstatomicqueue' ],
   [ 'gst/gstbuffer' ],
   [ 'gst/gstbufferlist' ],
@@ -28,6 +31,7 @@ core_tests = [
   [ 'gst/gstobject' ],
   [ 'gst/gstpad', not have_registry ],
   [ 'gst/gstparamspecs' ],
+  [ 'gst/gstprintf', not have_debug ],
   [ 'gst/gstpipeline', not have_registry ],
   [ 'gst/gstpoll' ],
   [ 'gst/gstplugin', not have_registry ],
@@ -43,6 +47,7 @@ core_tests = [
   [ 'gst/gsttask' ],
   [ 'gst/gsttoc' ],
   [ 'gst/gsttocsetter' ],
+  [ 'gst/gsttracerrecord' ],
   [ 'gst/gsturi' ],
   [ 'gst/gstutils', not have_registry ],
   [ 'gst/gstvalue' ],
@@ -60,11 +65,14 @@ core_tests = [
   [ 'libs/collectpads', not have_registry ],
   [ 'libs/controller' ],
   [ 'libs/flowcombiner' ],
+  [ 'libs/gstharness' ],
   [ 'libs/gstnetclientclock' ],
   [ 'libs/gstnettimeprovider' ],
   [ 'libs/gsttestclock' ],
+  [ 'libs/libsabi' ],
   [ 'libs/sparsefile' ],
   [ 'libs/transform1' ],
+  [ 'libs/transform2' ],
   [ 'libs/typefindhelper' ],
   [ 'libs/queuearray' ],
   [ 'elements/capsfilter', not have_registry ],
@@ -84,6 +92,10 @@ core_tests = [
   [ 'elements/valve', not have_registry ],
   [ 'pipelines/seek', not have_registry ],
   [ 'pipelines/queue-error', not have_registry ],
+  [ 'pipelines/parse-disabled', have_parse ],
+  [ 'pipelines/simple-launch-lines', not have_parse ],
+  [ 'pipelines/parse-launch', not have_parse ],
+  [ 'pipelines/cleanup', not have_parse ],
   [ 'tools/gstinspect' ],
   # These take quite long, put them at the end
   [ 'elements/fakesink', not have_registry ],
@@ -99,6 +111,7 @@ test_defines = [
   '-UG_DISABLE_CAST_CHECKS',
   '-DGST_CHECK_TEST_ENVIRONMENT_BEACON="GST_STATE_IGNORE_ELEMENTS"',
   '-DTESTFILE="' + meson.current_source_dir() + '/meson.build"',
+  '-DGST_USE_UNSTABLE_API',
 ]
 
 test_env = [
