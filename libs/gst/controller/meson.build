@@ -15,6 +15,7 @@ gst_controller_headers = [
   'gsttriggercontrolsource.h',
   'gstlfocontrolsource.h',
 ]
+install_headers(gst_controller_headers, subdir : 'gstreamer-1.0/gst/controller/')
 
 if libtype != 'shared'
   gst_controller_static = static_library('gstcontroller-@0@'.format(apiversion),

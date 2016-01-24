@@ -17,6 +17,7 @@ gst_net_headers = [
  'gstnettimeprovider.h',
  'gstptpclock.h',
 ]
+install_headers(gst_net_headers, subdir : 'gstreamer-1.0/gst/net/')
 
 if libtype != 'shared'
   gst_net_static = static_library('gstnet-@0@'.format(apiversion),
