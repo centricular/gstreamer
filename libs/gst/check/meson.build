@@ -1,3 +1,21 @@
+gst_check_sources = [
+  'gstbufferstraw.c',
+  'gstcheck.c',
+  'gstconsistencychecker.c',
+  'gstharness.c',
+  'gsttestclock.c',
+]
+gst_check_headers = [
+  'check.h',
+  'gstbufferstraw.h',
+  'gstcheck.h',
+  'gstconsistencychecker.h',
+  'gstharness.h',
+  'gsttestclock.h',
+]
+install_headers(gst_check_headers, subdir : 'gstreamer-1.0/gst/check/')
+
+
 check_cdata = configuration_data()
 
 check_cdata.set('ENABLE_SUBUNIT', 0)
@@ -12,15 +30,12 @@ subdir('libcheck')
 
 configure_file(input : 'libcheck/check.h.in',
   output : 'internal-check.h',
+  install : true,
+  install_dir : 'include/gstreamer-1.0/gst/check/',
   configuration : check_cdata)
 
 gst_check = shared_library('gstcheck',
-  'gstbufferstraw.c',
-  'gstcheck.c',
-  'gstconsistencychecker.c',
-  'gstharness.c',
-  'gsttestclock.c',
-  gstenum_h,
+  gst_check_sources, gstenum_h,
   include_directories : [configinc, libsinc],
   link_with : [libgst, libcheck],
   dependencies : [gobject_dep, glib_dep],
