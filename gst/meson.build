@@ -144,7 +144,8 @@ gst_headers = [
   'gstutils.h',
   'gstvalue.h',
   'gstregistry.h',
-  'gstparse.h'
+  'gstparse.h',
+  'math-compat.h',
 ]
 install_headers(gst_headers, subdir : 'gstreamer-1.0/gst')
 
@@ -154,11 +155,14 @@ else
   gst_registry = []
 endif
 
+# FIXME: gstconfig.h should go into libdir/include somewhere since arch-dependent
 configure_file(input : 'gstconfig.h.meson',
   output : 'gstconfig.h',
+  install_dir : 'include/gstreamer-1.0/gst',
   configuration : cdata)
 configure_file(input : 'gstversion.h.meson',
   output : 'gstversion.h',
+  install_dir : 'include/gstreamer-1.0/gst',
   configuration : cdata)
 
 mkenums = find_program('build_mkenum.py')
@@ -166,6 +170,8 @@ mkenums = find_program('build_mkenum.py')
 gstenum_h = custom_target('gstenum_h',
   output : 'gstenumtypes.h',
   input : gst_headers,
+  install : true,
+  install_dir : 'include/gstreamer-1.0/gst',
   command : [mkenums, '@OUTPUT@', '@INPUT@'])
 
 gstenum_c = custom_target('gstenum_c',
