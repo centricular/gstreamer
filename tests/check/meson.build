@@ -115,9 +115,9 @@ test_defines = [
 ]
 
 test_env = [
-  'GST_SYSTEM_PLUGIN_PATH=',
-  'GST_PLUGIN_PATH=' + meson.build_root() + '/plugins',
-  'GST_PLUGIN_SCANNER='+ meson.build_root() + '/libs/gst/helpers/gst-plugin-scanner',
+  'GST_PLUGIN_SYSTEM_PATH_1_0=',
+  'GST_PLUGIN_PATH_1_0=' + meson.build_root() + '/plugins',
+  'GST_PLUGIN_SCANNER_1_0='+ meson.build_root() + '/libs/gst/helpers/gst-plugin-scanner',
   'GST_STATE_IGNORE_ELEMENTS=',
   'CK_DEFAULT_TIMEOUT=20',
 ]
