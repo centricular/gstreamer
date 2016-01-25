@@ -62,7 +62,7 @@ cdata.set('PACKAGE_TARNAME', '"gstreamer"')
 cdata.set('PACKAGE_BUGREPORT', '"someone@somewhere"')
 cdata.set('PACKAGE_URL', '""')
 cdata.set('PACKAGE_VERSION', '"@0@"'.format(gst_version))
-cdata.set('PLUGINDIR', '"@0@/lib/gstreamer-1.0"'.format(get_option('prefix')))
+cdata.set('PLUGINDIR', '"@0@/@1@/gstreamer-1.0"'.format(get_option('prefix'),get_option('libdir')))
 cdata.set('VERSION', '"@0@"'.format(gst_version))
 # FIXME: --with-memory-alignment],[8,N,malloc,pagesize (default is 32)]) option
 cdata.set('MEMORY_ALIGNMENT_MALLOC', 1)
