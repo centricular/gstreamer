@@ -10,6 +10,7 @@ pkgconf.set('VERSION', gst_version)
 pkg_install_dir = '@0@/pkgconfig'.format(get_option('libdir'))
 
 pkg_files = ['gstreamer-base',
+  'gstreamer-check',
   'gstreamer-controller',
   'gstreamer-net',
   'gstreamer'
