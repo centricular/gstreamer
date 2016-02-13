@@ -145,7 +145,7 @@ int main(void) {
 }
 '''
 
-if cc.compiles(gmtoff_src)
+if cc.compiles(gmtoff_src, name : 'tm_gmtoff from time.h')
   cdata.set('HAVE_TM_GMTOFF', 1)
 endif
 
