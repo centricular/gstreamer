@@ -5,12 +5,6 @@ project('gstreamer', 'c', 'cpp',
                       'c_std=gnu99',
                       'buildtype=debugoptimized' ])
 
-if host_machine.system() == 'windows'
-  system_link_args = ['-lws2_32']
-else
-  system_link_args = []
-endif
-
 gst_version = meson.project_version()
 version_arr = gst_version.split('.')
 gst_version_major = version_arr[0]
@@ -40,6 +34,17 @@ libdir = get_option('libdir')
 helpers_install_dir = '@0@/@1@/gstreamer1.0/gstreamer-1.0/'.format(prefix,libdir)
 
 cc = meson.get_compiler('c')
+
+if host_machine.system() == 'windows'
+  if cc.get_id() == 'msvc'
+    system_link_args = ['ws2_32.lib']
+  else
+    system_link_args = ['-lws2_32']
+  endif
+else
+  system_link_args = []
+endif
+
 cdata = configuration_data()
 cdata.set('GST_VERSION_MAJOR', gst_version_major)
 cdata.set('GST_VERSION_MINOR', gst_version_minor)
