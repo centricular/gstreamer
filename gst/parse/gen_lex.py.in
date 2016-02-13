@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 
-import sys, subprocess
+import subprocess, sys, shlex
 
 cfile = sys.argv[1]
 hfile = sys.argv[2]
 lfile = sys.argv[3]
 tabhfile = sys.argv[4]
 
-subprocess.check_call(['flex', '--header-file=' + hfile, '-o', cfile, '-Ppriv_gst_parse_yy', lfile])
+args = ['--header-file=' + hfile, '-o', cfile, '-Ppriv_gst_parse_yy', lfile]
+flex = [r'@FLEX@'] + shlex.split(r'@FLEX_ARGS@')
+subprocess.check_call(flex + args)
 
 prefix = '''#ifdef HAVE_CONFIG_H
 #include<config.h>
