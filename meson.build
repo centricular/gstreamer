@@ -243,8 +243,6 @@ else
 endif
 mathlib = find_library('m', required : false)
 rt_lib = find_library('rt', required : false) # clock_gettime
-flex = find_program('flex')
-bison = find_program('bison')
 gir = find_program('g-ir-scanner', required : false)
 gnome = import('gnome')
 
