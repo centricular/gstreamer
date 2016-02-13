@@ -78,7 +78,7 @@ static TestResult *receive_result_info_nofork (const char *tcname,
 static void set_nofork_info (TestResult * tr);
 static char *pass_msg (void);
 
-#if defined(HAVE_FORK) && HAVE_FORK==1
+#ifdef HAVE_FORK
 static TestResult *tcase_run_tfun_fork (SRunner * sr, TCase * tc, TF * tf,
     int i);
 static TestResult *receive_result_info_fork (const char *tcname,
@@ -94,7 +94,7 @@ static int waserror (int status, int expected_signal);
 static int alarm_received;
 static pid_t group_pid;
 
-#if defined(HAVE_SIGACTION) && defined(HAVE_FORK)
+#ifdef HAVE_SIGACTION
 static struct sigaction old_action[3];
 static struct sigaction new_action[3];
 #endif /* HAVE_SIGACTION && HAVE_FORK */
@@ -218,7 +218,7 @@ srunner_iterate_tcase_tfuns (SRunner * sr, TCase * tc)
       log_test_start (sr, tc, tfun);
       switch (srunner_fork_status (sr)) {
         case CK_FORK:
-#if defined(HAVE_FORK) && HAVE_FORK==1
+#ifdef HAVE_FORK
           tr = tcase_run_tfun_fork (sr, tc, tfun, i);
 #else /* HAVE_FORK */
           eprintf ("This version does not support fork", __FILE__, __LINE__);
@@ -423,7 +423,7 @@ pass_msg (void)
   return strdup ("Passed");
 }
 
-#if defined(HAVE_FORK) && HAVE_FORK==1
+#ifdef HAVE_FORK
 static TestResult *
 tcase_run_tfun_fork (SRunner * sr, TCase * tc, TF * tfun, int i)
 {
@@ -637,7 +637,7 @@ srunner_fork_status (SRunner * sr)
     char *env = getenv ("CK_FORK");
 
     if (env == NULL)
-#if defined(HAVE_FORK) && HAVE_FORK==1
+#ifdef HAVE_FORK
       return CK_FORK;
 #else
       return CK_NOFORK;
@@ -645,7 +645,7 @@ srunner_fork_status (SRunner * sr)
     if (strcmp (env, "no") == 0)
       return CK_NOFORK;
     else {
-#if defined(HAVE_FORK) && HAVE_FORK==1
+#ifdef HAVE_FORK
       return CK_FORK;
 #else /* HAVE_FORK */
       eprintf ("This version does not support fork", __FILE__, __LINE__);
@@ -659,7 +659,7 @@ srunner_fork_status (SRunner * sr)
 void
 srunner_set_fork_status (SRunner * sr, enum fork_status fstat)
 {
-#if !defined(HAVE_FORK) || HAVE_FORK==0
+#ifndef HAVE_FORK
   /* If fork() is unavailable, do not allow a fork mode to be set */
   if (fstat != CK_NOFORK) {
     eprintf ("This version does not support fork", __FILE__, __LINE__);
@@ -715,7 +715,7 @@ srunner_run (SRunner * sr, const char *sname, const char *tcname,
 pid_t
 check_fork (void)
 {
-#if defined(HAVE_FORK) && HAVE_FORK==1
+#ifdef HAVE_FORK
   pid_t pid = fork ();
 
   /* Set the process to a process group to be able to kill it easily. */
@@ -732,7 +732,7 @@ check_fork (void)
 void
 check_waitpid_and_exit (pid_t pid CK_ATTRIBUTE_UNUSED)
 {
-#if defined(HAVE_FORK) && HAVE_FORK==1
+#ifdef HAVE_FORK
   pid_t pid_w;
   int status;
 

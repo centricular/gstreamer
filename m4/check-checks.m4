@@ -31,7 +31,7 @@ dnl Check for mkstemp
 AC_CHECK_FUNCS([mkstemp])
 
 dnl Check for fork
-AC_CHECK_FUNCS([fork], HAVE_FORK=1, HAVE_FORK=0)
+AC_CHECK_FUNCS([fork], HAVE_FORK=1, [])
 AC_SUBST(HAVE_FORK)
 
 dnl Check for alarm, localtime_r and strsignal
