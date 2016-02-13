@@ -245,7 +245,7 @@ tcase_add_fixture (TCase * tc, SFun setup, SFun teardown, int ischecked)
 void
 tcase_set_timeout (TCase * tc, double timeout)
 {
-#if defined(HAVE_FORK)
+#ifdef HAVE_FORK
   if (timeout >= 0) {
     char *env = getenv ("CK_TIMEOUT_MULTIPLIER");
 
@@ -303,7 +303,7 @@ _ck_assert_failed (const char *file, int line, const char *expr, ...)
   va_end (ap);
   send_failure_info (buf);
   if (cur_fork_status () == CK_FORK) {
-#if defined(HAVE_FORK) && HAVE_FORK==1
+#ifdef HAVE_FORK
     _exit (1);
 #endif /* HAVE_FORK */
   } else {
@@ -327,7 +327,7 @@ srunner_create (Suite * s)
   sr->tap_fname = NULL;
   sr->loglst = NULL;
 
-#if defined(HAVE_FORK)
+#ifdef HAVE_FORK
   sr->fstat = CK_FORK_GETENV;
 #else
   /*
