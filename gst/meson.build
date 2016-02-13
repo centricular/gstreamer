@@ -156,11 +156,11 @@ else
 endif
 
 # FIXME: gstconfig.h should go into libdir/include somewhere since arch-dependent
-configure_file(input : 'gstconfig.h.meson',
+configure_file(input : 'gstconfig.h.in',
   output : 'gstconfig.h',
   install_dir : 'include/gstreamer-1.0/gst',
   configuration : cdata)
-configure_file(input : 'gstversion.h.meson',
+configure_file(input : 'gstversion.h.in',
   output : 'gstversion.h',
   install_dir : 'include/gstreamer-1.0/gst',
   configuration : cdata)
