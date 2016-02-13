@@ -5,7 +5,7 @@
 # make special characters such as \n go through all
 # backends is a fool's errand.
 
-import sys, os, subprocess
+import sys, os, shutil, subprocess
 
 h_array = ['--fhead',
            "#ifndef __GST_ENUM_TYPES_H__\n#define __GST_ENUM_TYPES_H__\n\n#include <glib-object.h>\n\nG_BEGIN_DECLS\n",
@@ -37,7 +37,8 @@ if ofilename.endswith('.h'):
 else:
     arg_array = c_array
 
-pc = subprocess.Popen(['glib-mkenums'] + arg_array + headers, stdout=subprocess.PIPE)
+cmd = [shutil.which('perl'), shutil.which('glib-mkenums')]
+pc = subprocess.Popen(cmd + arg_array + headers, stdout=subprocess.PIPE)
 (stdo, _) = pc.communicate()
 if pc.returncode != 0:
     sys.exit(pc.returncode)
