@@ -41,6 +41,8 @@ if libtype != 'static'
     soversion : soversion,
     install : true,
     dependencies : [gobject_dep, gio_dep, glib_dep],
+    # Only used with MSVC
+    module_defs_file: meson.source_root() + '/win32/common/libgstnet.def',
   )
   gst_net = gst_net_shared
   if build_gir

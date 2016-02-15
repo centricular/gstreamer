@@ -61,6 +61,8 @@ if libtype != 'static'
     soversion : soversion,
     install : true,
     dependencies : [gobject_dep, glib_dep],
+    # Only used with MSVC
+    module_defs_file: meson.source_root() + '/win32/common/libgstbase.def',
   )
   gst_base = gst_base_shared
   if build_gir
