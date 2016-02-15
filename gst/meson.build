@@ -220,6 +220,8 @@ if libtype != 'static'
     link_args : system_link_args,
     install : true,
     dependencies : [gobject_dep, gmodule_dep, glib_dep, mathlib],
+    # Only used with MSVC
+    module_defs_file: meson.source_root() + '/win32/common/libgstreamer.def',
   )
   libgst = libgst_shared
   if build_gir
