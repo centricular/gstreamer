@@ -141,7 +141,7 @@ gmtoff_src = '''#include <time.h>
 int main(void) {
   struct tm t;
   t.tm_gmtoff = 0;
-  exit(0);
+  return 0;
 }
 '''
 
