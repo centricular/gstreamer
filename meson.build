@@ -64,7 +64,7 @@ cdata.set('PACKAGE', '"gstreamer"')
 cdata.set('PACKAGE_NAME', '"GStreamer"')
 cdata.set('PACKAGE_STRING', '"GStreamer @0@"'.format(gst_version))
 cdata.set('PACKAGE_TARNAME', '"gstreamer"')
-cdata.set('PACKAGE_BUGREPORT', '"someone@somewhere"')
+cdata.set('PACKAGE_BUGREPORT', '"http://bugzilla.gnome.org/enter_bug.cgi?product=GStreamer"')
 cdata.set('PACKAGE_URL', '""')
 cdata.set('PACKAGE_VERSION', '"@0@"'.format(gst_version))
 cdata.set('PLUGINDIR', '"@0@/@1@/gstreamer-1.0"'.format(get_option('prefix'),get_option('libdir')))
@@ -130,12 +130,6 @@ foreach h : check_headers
     cdata.set(h.get(1), 1)
   endif
 endforeach
-
-cdata.set('SIZEOF_CHAR', cc.sizeof('char'))
-cdata.set('SIZEOF_INT', cc.sizeof('int'))
-cdata.set('SIZEOF_LONG', cc.sizeof('long'))
-cdata.set('SIZEOF_SHORT', cc.sizeof('short'))
-cdata.set('SIZEOF_VOIDP', cc.sizeof('void*'))
 
 gmtoff_src = '''#include <time.h>
 int main(void) {
