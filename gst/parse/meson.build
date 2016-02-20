@@ -7,7 +7,7 @@ if not py3.found()
 endif
 
 # Find flex, configure lex generator
-cdata = configuration_data()
+flex_cdata = configuration_data()
 
 flex = find_program('flex', required : false)
 if not flex.found()
@@ -17,19 +17,19 @@ if not flex.found()
   endif
 endif
 
-cdata.set('FLEX', flex.path())
+flex_cdata.set('FLEX', flex.path())
 if cc.get_id() == 'msvc'
-  cdata.set('FLEX_ARGS', '--wincompat')
+  flex_cdata.set('FLEX_ARGS', '--wincompat')
 else
-  cdata.set('FLEX_ARGS', '')
+  flex_cdata.set('FLEX_ARGS', '')
 endif
 
 gen_lex = configure_file(input : 'gen_lex.py.in',
   output : 'gen_lex.py',
-  configuration : cdata)
+  configuration : flex_cdata)
 
 # Find bison, configure grammar generator
-cdata = configuration_data()
+bison_cdata = configuration_data()
 
 bison = find_program('bison', required : false)
 if not bison.found()
@@ -39,12 +39,12 @@ if not bison.found()
   endif
 endif
 
-cdata.set('BISON', bison.path())
-cdata.set('BISON_ARGS', '')
+bison_cdata.set('BISON', bison.path())
+bison_cdata.set('BISON_ARGS', '')
 
 gen_grammar = configure_file(input : 'gen_grammar.py.in',
   output : 'gen_grammar.py',
-  configuration : cdata)
+  configuration : bison_cdata)
 
 # Custom targets
 grammar = custom_target('parsegrammar',
