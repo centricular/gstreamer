@@ -225,6 +225,15 @@ if libtype != 'static'
   )
   libgst = libgst_shared
   if build_gir
+    gst_gir_extra_args = gir_init_section + [ '--c-include=gst/gst.h' ]
+    if meson.is_subproject()
+      # FIXME: There must be a better way to do this
+      # Need to pass the include path to find gst/gst.h and gst/gstenumtypes.h (built)
+      gst_gir_extra_args += ['--cflags-begin',
+	  '-I' + meson.current_source_dir() + '/..',
+	  '-I' + meson.current_build_dir() + '/..',
+	  '--cflags-end']
+    endif
     gnome.generate_gir(libgst_shared,
       sources : gst_sources + gst_headers,
       namespace : 'Gst',
@@ -234,7 +243,7 @@ if libtype != 'static'
       export_packages : 'gstreamer-1.0',
       includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0' ],
       install : true,
-      extra_args : gir_init_section + [ '--c-include=gst/gst.h' ],
+      extra_args : gst_gir_extra_args,
     )
   endif
 endif
