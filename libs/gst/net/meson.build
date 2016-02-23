@@ -61,3 +61,7 @@ if libtype != 'static'
     )
   endif
 endif
+
+gst_net_dep = declare_dependency(link_with : gst_net,
+  sources : [gstenum_h],
+)

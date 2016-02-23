@@ -238,3 +238,8 @@ if libtype != 'static'
     )
   endif
 endif
+
+gst_dep = declare_dependency(include_directories : [configinc, libsinc, privinc],
+  link_with : libgst,
+  sources : [gstenum_h],
+)

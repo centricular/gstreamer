@@ -246,12 +246,6 @@ build_gir = gir.found() and not meson.is_cross_build()
 gir_init_section = [ '--add-init-section=extern void gst_init(gint*,gchar**); gst_init(NULL,NULL);' ]
 
 subdir('gst')
-
-gst_dep = declare_dependency(include_directories : [configinc, libsinc, privinc],
-  link_with : libgst,
-  sources : gstenum_h,
-)
-
 subdir('libs')
 subdir('plugins')
 subdir('tools')
