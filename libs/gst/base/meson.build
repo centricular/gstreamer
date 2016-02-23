@@ -82,6 +82,10 @@ if libtype != 'static'
   endif
 endif
 
+gst_base_dep = declare_dependency(link_with : gst_base,
+  sources : [gstenum_h],
+)
+
 install_headers('base.h',
   'gstadapter.h',
   'gstbaseparse.h',

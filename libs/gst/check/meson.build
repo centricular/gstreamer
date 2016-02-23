@@ -40,3 +40,7 @@ gst_check = shared_library('gstcheck',
   link_with : [libgst, libcheck],
   dependencies : [gobject_dep, glib_dep],
 )
+
+gst_check_dep = declare_dependency(link_with : gst_check,
+  sources : [gstenum_h],
+)
