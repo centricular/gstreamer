@@ -25,7 +25,7 @@ if libtype != 'shared'
     include_directories : [configinc, libsinc],
     link_with : libgst,
     install : true,
-    dependencies : [gobject_dep, glib_dep],
+    dependencies : [gobject_dep, glib_dep, mathlib],
   )
   gst_controller = gst_controller_static
 endif
@@ -40,7 +40,7 @@ if libtype != 'static'
     version : libversion,
     link_with : libgst,
     soversion : soversion,
-    dependencies : [gobject_dep, glib_dep],
+    dependencies : [gobject_dep, glib_dep, mathlib],
     # Only used with MSVC
     module_defs_file: meson.source_root() + '/win32/common/libgstcontroller.def',
   )
