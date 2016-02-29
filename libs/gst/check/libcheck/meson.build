@@ -38,5 +38,5 @@ libcheck = static_library('check',
   gstenum_h,
   libcheck_files,
   include_directories : [ configinc, internal_check_h_inc ],
-  dependencies : [ rt_lib ],
+  dependencies : [rt_lib, mathlib],
   c_args: [ '-DHAVE_CONFIG_H', '-fPIC' ])
