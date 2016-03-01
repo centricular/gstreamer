@@ -177,6 +177,7 @@ gstenum_h = custom_target('gstenum_h',
 gstenum_c = custom_target('gstenum_c',
   output : 'gstenumtypes.c',
   input : gst_headers,
+  depends : [gstenum_h],
   command : [mkenums, '@OUTPUT@', '@INPUT@'])
 
 subdir('parse')
