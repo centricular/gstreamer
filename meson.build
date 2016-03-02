@@ -253,5 +253,10 @@ subdir('plugins')
 subdir('tools')
 subdir('pkgconfig')
 subdir('tests')
-subdir('docs')
+# FIXME: check for gtk-doc
+if build_machine.system() != 'windows'
+  subdir('docs')
+else
+  message('Disabling gtk-doc while building on Windows')
+endif
 subdir('po')
