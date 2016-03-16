@@ -19,7 +19,7 @@ endif
 
 flex_cdata.set('FLEX', flex.path())
 if cc.get_id() == 'msvc'
-  flex_cdata.set('FLEX_ARGS', '--wincompat')
+  flex_cdata.set('FLEX_ARGS', '--nounistd')
 else
   flex_cdata.set('FLEX_ARGS', '')
 endif
