@@ -35,7 +35,7 @@ helpers_install_dir = '@0@/@1@/gstreamer-1.0/'.format(prefix,libexecdir)
 
 cc = meson.get_compiler('c')
 
-# FIXME: find_library doesn't work on Windows, so we need to add this manually
+# FIXME: cc.find_library doesn't work on Windows, so we need to add this manually
 # FIXME: Manually add these to whichever pieces actually use it
 if host_machine.system() == 'windows'
   if cc.get_id() == 'msvc'
@@ -237,8 +237,8 @@ if host_machine.system() == 'windows'
 else
     gio_dep = [dependency('gio-2.0'), dependency('gio-unix-2.0')]
 endif
-mathlib = find_library('m', required : false)
-rt_lib = find_library('rt', required : false) # clock_gettime
+mathlib = cc.find_library('m', required : false)
+rt_lib = cc.find_library('rt', required : false) # clock_gettime
 gir = find_program('g-ir-scanner', required : false)
 gnome = import('gnome')
 
