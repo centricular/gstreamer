@@ -30,8 +30,8 @@ endif
 prefix = get_option('prefix')
 libtype = get_option('library_format')
 
-libdir = get_option('libdir')
-helpers_install_dir = '@0@/@1@/gstreamer1.0/gstreamer-1.0/'.format(prefix,libdir)
+libexecdir = get_option('libexecdir')
+helpers_install_dir = '@0@/@1@/gstreamer-1.0/'.format(prefix,libexecdir)
 
 cc = meson.get_compiler('c')
 
