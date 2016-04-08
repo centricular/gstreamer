@@ -35,12 +35,10 @@ configure_file(input : 'libcheck/check.h.in',
   configuration : check_cdata)
 
 gst_check = shared_library('gstcheck',
-  gst_check_sources, gstenum_h,
+  gst_check_sources,
   include_directories : [configinc, libsinc],
-  link_with : [libgst, libcheck],
-  dependencies : [gobject_dep, glib_dep],
+  link_with : [libcheck],
+  dependencies : [gobject_dep, glib_dep, gst_dep],
 )
 
-gst_check_dep = declare_dependency(link_with : gst_check,
-  sources : [gstenum_h],
-)
+gst_check_dep = declare_dependency(link_with : gst_check)

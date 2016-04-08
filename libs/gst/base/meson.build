@@ -36,14 +36,10 @@ gst_base_headers = [
 if libtype != 'shared'
   gst_base_static = static_library('gstbase-@0@'.format(apiversion),
     gst_base_sources,
-    # This header needs to be generated before building this
-    # target can begin
-    gstenum_h,
     c_args : ['-DHAVE_CONFIG_H'],
-    include_directories : [configinc, libsinc],
-    link_with : libgst_static,
     install : true,
-    dependencies : [gobject_dep, glib_dep],
+    include_directories : [configinc, libsinc],
+    dependencies : [gobject_dep, glib_dep, gst_dep],
   )
   gst_base = gst_base_static
 endif
@@ -51,16 +47,12 @@ endif
 if libtype != 'static'
   gst_base_shared = shared_library('gstbase-@0@'.format(apiversion),
     gst_base_sources,
-    # This header needs to be generated before building this
-    # target can begin
-    gstenum_h,
     c_args : ['-DHAVE_CONFIG_H'],
-    include_directories : [configinc, libsinc],
-    link_with : libgst_shared,
     version : libversion,
     soversion : soversion,
     install : true,
-    dependencies : [gobject_dep, glib_dep],
+    include_directories : [configinc, libsinc],
+    dependencies : [gobject_dep, glib_dep, gst_dep],
     vs_module_defs: vs_module_defs_dir + 'libgstbase.def',
   )
   gst_base = gst_base_shared
@@ -82,7 +74,7 @@ if libtype != 'static'
 endif
 
 gst_base_dep = declare_dependency(link_with : gst_base,
-  sources : [gstenum_h],
+  include_directories : [libsinc],
 )
 
 install_headers('base.h',

@@ -35,7 +35,6 @@ configure_file(input : 'check.h.in',
 internal_check_h_inc = include_directories('..')
 
 libcheck = static_library('check',
-  gstenum_h,
   libcheck_files,
   include_directories : [ configinc, internal_check_h_inc ],
   dependencies : [rt_lib, mathlib],
