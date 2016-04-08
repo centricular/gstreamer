@@ -41,8 +41,7 @@ if libtype != 'static'
     link_with : libgst,
     soversion : soversion,
     dependencies : [gobject_dep, glib_dep, mathlib],
-    # Only used with MSVC
-    module_defs_file: meson.source_root() + '/win32/common/libgstcontroller.def',
+    vs_module_defs: vs_module_defs_dir + 'libgstcontroller.def',
   )
   gst_controller = gst_controller_shared
   if build_gir
