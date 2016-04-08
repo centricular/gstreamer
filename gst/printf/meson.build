@@ -19,7 +19,7 @@ printf_args = [
 
 # FIXME: need a way to find portable c_args for -fPIC
 printf_lib = static_library('gstprintf',
-    printf_sources, gstenum_h,
+    printf_sources,
     include_directories : [configinc],
     c_args : [printf_args, '-fPIC'],
     install : false,

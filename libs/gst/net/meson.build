@@ -21,26 +21,24 @@ install_headers(gst_net_headers, subdir : 'gstreamer-1.0/gst/net/')
 
 if libtype != 'shared'
   gst_net_static = static_library('gstnet-@0@'.format(apiversion),
-    gst_net_sources, gstenum_h,
+    gst_net_sources,
     c_args : ['-DHAVE_CONFIG_H'],
     include_directories : [configinc, libsinc],
-    link_with : [ gst_base_static, libgst_static ],
     install : true,
-    dependencies : [gobject_dep, gio_dep, glib_dep],
+    dependencies : [gobject_dep, gio_dep, glib_dep, gst_dep, gst_base_dep],
   )
   gst_net = gst_net_static
 endif
 
 if libtype != 'static'
   gst_net_shared = shared_library('gstnet-@0@'.format(apiversion),
-    gst_net_sources, gstenum_h,
+    gst_net_sources,
     c_args : ['-DHAVE_CONFIG_H'],
     include_directories : [configinc, libsinc],
-    link_with : [ gst_base_shared, libgst_shared ],
     version : libversion,
     soversion : soversion,
     install : true,
-    dependencies : [gobject_dep, gio_dep, glib_dep],
+    dependencies : [gobject_dep, gio_dep, glib_dep, gst_dep, gst_base_dep],
     vs_module_defs: vs_module_defs_dir + 'libgstnet.def',
   )
   gst_net = gst_net_shared
@@ -53,7 +51,7 @@ if libtype != 'static'
       symbol_prefix : 'gst',
       export_packages : 'gstreamer-net-1.0',
       link_with : libgst_shared,
-      include_directories : [configinc, libsinc, privinc],
+      include_directories : [configinc, libsinc],
       includes : ['GLib-2.0', 'GObject-2.0', 'GModule-2.0', 'Gio-2.0', 'Gst-1.0'],
       install : true,
       extra_args : gir_init_section,
@@ -62,5 +60,5 @@ if libtype != 'static'
 endif
 
 gst_net_dep = declare_dependency(link_with : gst_net,
-  sources : [gstenum_h],
+  include_directories : [libsinc],
 )

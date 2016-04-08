@@ -22,16 +22,14 @@ gst_elements_sources = [
   'gsttee.c',
   'gsttypefindelement.c',
   'gstvalve.c',
-  gstenum_h,
 ]
 
 if libtype != 'shared'
   gst_elements_static = static_library('gstcoreelements',
     gst_elements_sources,
     c_args : ['-DHAVE_CONFIG_H', '-DGST_PLUGIN_BUILD_STATIC'],
-    include_directories : [configinc, libsinc],
-    link_with : [gst_base_static, libgst_static],
-    dependencies : [gobject_dep, glib_dep],
+    include_directories : [configinc],
+    dependencies : [gobject_dep, glib_dep, gst_dep, gst_base_dep],
     install : true,
     install_dir : '@0@/gstreamer-1.0'.format(get_option('libdir')),
   )
@@ -42,9 +40,8 @@ if libtype != 'static'
   gst_elements_shared = shared_library('gstcoreelements',
     gst_elements_sources,
     c_args : ['-DHAVE_CONFIG_H'],
-    include_directories : [configinc, libsinc],
-    dependencies : [gobject_dep, glib_dep],
-    link_with : [gst_base_shared, libgst_shared],
+    include_directories : [configinc],
+    dependencies : [gobject_dep, glib_dep, gst_dep, gst_base_dep],
     install : true,
     install_dir : '@0@/gstreamer-1.0'.format(get_option('libdir')),
   )

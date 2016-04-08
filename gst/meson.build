@@ -248,7 +248,8 @@ if libtype != 'static'
   endif
 endif
 
-gst_dep = declare_dependency(include_directories : [configinc, libsinc, privinc],
-  link_with : libgst,
+gst_dep = declare_dependency(link_with : libgst,
+  include_directories : [configinc],
+  # Everything that uses libgst needs this built to compile
   sources : [gstenum_h],
 )
