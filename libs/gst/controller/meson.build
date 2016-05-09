@@ -14,6 +14,7 @@ gst_controller_headers = [
   'gstinterpolationcontrolsource.h',
   'gsttriggercontrolsource.h',
   'gstlfocontrolsource.h',
+  'controller.h',
 ]
 install_headers(gst_controller_headers, subdir : 'gstreamer-1.0/gst/controller/')
 
