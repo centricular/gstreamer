@@ -155,10 +155,9 @@ else
   gst_registry = []
 endif
 
-# FIXME: gstconfig.h should go into libdir/include somewhere since arch-dependent
 configure_file(input : 'gstconfig.h.in',
   output : 'gstconfig.h',
-  install_dir : 'include/gstreamer-1.0/gst',
+  install_dir : get_option('libdir') + '/gstreamer-1.0/include/gst',
   configuration : cdata)
 configure_file(input : 'gstversion.h.in',
   output : 'gstversion.h',
