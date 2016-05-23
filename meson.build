@@ -35,14 +35,9 @@ helpers_install_dir = libexecdir + '/gstreamer-1.0/'
 
 cc = meson.get_compiler('c')
 
-# FIXME: cc.find_library doesn't work on Windows, so we need to add this manually
 # FIXME: Manually add these to whichever pieces actually use it
 if host_machine.system() == 'windows'
-  if cc.get_id() == 'msvc'
-    system_link_args = ['ws2_32.lib']
-  else
-    system_link_args = ['-lws2_32']
-  endif
+  system_link_args = ['-lws2_32']
 else
   system_link_args = []
 endif
