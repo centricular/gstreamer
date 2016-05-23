@@ -31,7 +31,7 @@ prefix = get_option('prefix')
 libtype = get_option('library_format')
 
 libexecdir = get_option('libexecdir')
-helpers_install_dir = '@0@/@1@/gstreamer-1.0/'.format(prefix,libexecdir)
+helpers_install_dir = libexecdir + '/gstreamer-1.0/'
 
 cc = meson.get_compiler('c')
 
@@ -73,8 +73,8 @@ cdata.set('PLUGINDIR', '"@0@/@1@/gstreamer-1.0"'.format(get_option('prefix'),get
 cdata.set('VERSION', '"@0@"'.format(gst_version))
 # FIXME: --with-memory-alignment],[8,N,malloc,pagesize (default is 32)]) option
 cdata.set('MEMORY_ALIGNMENT_MALLOC', 1)
-cdata.set('GST_PLUGIN_SCANNER_INSTALLED', '"@0@/gst-plugin-scanner"'.format(helpers_install_dir))
-cdata.set('GST_PTP_HELPER_INSTALLED', '"@0@/gst-ptp-helper"'.format(helpers_install_dir))
+cdata.set('GST_PLUGIN_SCANNER_INSTALLED', '"@0@/@1@/gst-plugin-scanner"'.format(prefix, helpers_install_dir))
+cdata.set('GST_PTP_HELPER_INSTALLED', '"@0@/@1@/gst-ptp-helper"'.format(prefix, helpers_install_dir))
 
 # These are only needed/used by the ABI tests
 host_defines = [
