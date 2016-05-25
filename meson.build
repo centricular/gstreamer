@@ -20,12 +20,7 @@ apiversion = '1.0'
 soversion = 0
 # maintaining compatibility with the previous libtool versioning
 # current = minor * 100 + micro
-# FIXME: should be able to convert string to int somehow so we can just do maths
-if gst_version_micro == '0' or gst_version_micro == '1' or gst_version_micro == '2' or gst_version_micro == '3' or gst_version_micro == '4' or gst_version_micro == '5' or gst_version_micro == '6' or gst_version_micro == '7' or gst_version_micro == '8' or gst_version_micro == '9'
-  libversion = '0.' + gst_version_minor + '0' + gst_version_micro + '.0'
-else
-  libversion = '0.' + gst_version_minor + gst_version_micro + '.0'
-endif
+libversion = '@0@.@1@.0'.format(soversion, gst_version_minor.to_int() * 100 + gst_version_micro.to_int())
 
 prefix = get_option('prefix')
 libtype = get_option('library_format')
