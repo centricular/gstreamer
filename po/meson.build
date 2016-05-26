@@ -1,3 +1,5 @@
+i18n = import('i18n')
+
 langs = [
   'af',
   'az',
@@ -40,5 +42,4 @@ langs = [
   'zh_TW',
 ]
 
-gettext('gstreamer-1.0',
-  languages : langs)
+i18n.gettext('gstreamer-1.0', languages : langs)
