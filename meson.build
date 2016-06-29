@@ -42,6 +42,14 @@ else
   system_link_args = []
 endif
 
+# Ignore several spurious warnings for things gstreamer does very commonly
+# If a warning is completely useless and spammy, use '/wdXXXX' to suppress it
+# If a warning is harmless but hard to fix, use '/woXXXX' so it's shown once
+# NOTE: Only add warnings here if you are sure they're spurious
+if cc.get_id() == 'msvc'
+  add_global_arguments('/wd4018', '/wd4244', '/wd4996', language : 'c')
+endif
+
 cdata = configuration_data()
 cdata.set('GST_VERSION_MAJOR', gst_version_major)
 cdata.set('GST_VERSION_MINOR', gst_version_minor)
