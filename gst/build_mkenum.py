@@ -29,15 +29,16 @@ c_array = [
     "    { 0, NULL, NULL }\n  };\n\n  if (g_once_init_enter (&id)) {\n    GType tmp = g_@type@_register_static (\"@EnumName@\", values);\n    g_once_init_leave (&id, tmp);\n  }\n\n  return (GType) id;\n}"
     ]
 
-ofilename = sys.argv[1]
-headers = sys.argv[2:]
+# [perl, glib-mkenums]
+cmd = [sys.argv[1], sys.argv[2]]
+ofilename = sys.argv[3]
+headers = sys.argv[4:]
 
 if ofilename.endswith('.h'):
     arg_array = h_array
 else:
     arg_array = c_array
 
-cmd = [shutil.which('perl'), shutil.which('glib-mkenums')]
 pc = subprocess.Popen(cmd + arg_array + headers, stdout=subprocess.PIPE)
 (stdo, _) = pc.communicate()
 if pc.returncode != 0:
