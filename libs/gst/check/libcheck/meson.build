@@ -38,4 +38,4 @@ libcheck = static_library('check',
   libcheck_files,
   include_directories : [ configinc, internal_check_h_inc ],
   dependencies : [rt_lib, mathlib],
-  c_args: [ '-DHAVE_CONFIG_H', '-fPIC' ])
+  c_args: ['-DHAVE_CONFIG_H'] + pic_args)

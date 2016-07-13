@@ -17,10 +17,9 @@ printf_args = [
   '-DHAVE_CONFIG_H=1',
 ]
 
-# FIXME: need a way to find portable c_args for -fPIC
 printf_lib = static_library('gstprintf',
     printf_sources,
     include_directories : [configinc],
-    c_args : [printf_args, '-fPIC'],
+    c_args : printf_args + pic_args,
     install : false,
     dependencies : [glib_dep])

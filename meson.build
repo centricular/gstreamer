@@ -30,11 +30,12 @@ helpers_install_dir = libexecdir + '/gstreamer-1.0/'
 
 cc = meson.get_compiler('c')
 
-# FIXME: Manually add these to whichever pieces actually use it
+# FIXME: Meson should have a way for portably adding -fPIC when needed for use
+# with static libraries that are linked into shared libraries. Or, it should
+# add it by default with an option to turn it off if needed.
+pic_args = ['-fPIC']
 if host_machine.system() == 'windows'
-  system_link_args = ['-lws2_32']
-else
-  system_link_args = []
+  pic_args = []
 endif
 
 # Ignore several spurious warnings for things gstreamer does very commonly
@@ -237,6 +238,13 @@ else
 endif
 mathlib = cc.find_library('m', required : false)
 rt_lib = cc.find_library('rt', required : false) # clock_gettime
+
+# Platform deps; only ws2_32 for now
+platform_deps = []
+if host_machine.system() == 'windows'
+  platform_deps = [cc.find_library('ws2_32')]
+endif
+
 gir = find_program('g-ir-scanner', required : false)
 gnome = import('gnome')
 

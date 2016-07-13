@@ -203,8 +203,7 @@ if libtype != 'shared'
       include_directories('parse')],
     install : true,
     link_with : printf_lib,
-    link_args : system_link_args,
-    dependencies : [gobject_dep, gmodule_dep, glib_dep, mathlib],
+    dependencies : [gobject_dep, gmodule_dep, glib_dep, mathlib] + platform_deps,
   )
   libgst = libgst_static
 endif
@@ -219,9 +218,8 @@ if libtype != 'static'
       # HACK, change include paths in .y and .l in final version.
       include_directories('parse')],
     link_with : printf_lib,
-    link_args : system_link_args,
     install : true,
-    dependencies : [gobject_dep, gmodule_dep, glib_dep, mathlib],
+    dependencies : [gobject_dep, gmodule_dep, glib_dep, mathlib] + platform_deps,
     vs_module_defs: vs_module_defs_dir + 'libgstreamer.def',
   )
   libgst = libgst_shared
