@@ -4,3 +4,7 @@ subdir('misc')
 if host_machine.system() != 'windows'
 subdir('check')
 endif
+
+# FIXME: implement this
+#subdir('examples')
+#subdir('misc')
