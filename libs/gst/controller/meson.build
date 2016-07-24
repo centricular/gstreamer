@@ -21,7 +21,7 @@ install_headers(gst_controller_headers, subdir : 'gstreamer-1.0/gst/controller/'
 if libtype != 'shared'
   gst_controller_static = static_library('gstcontroller-@0@'.format(apiversion),
     gst_controller_sources,
-    c_args : ['-DHAVE_CONFIG_H'],
+    c_args : gst_c_args,
     install : true,
     include_directories : [configinc, libsinc],
     dependencies : [gobject_dep, glib_dep, mathlib, gst_dep],
@@ -32,7 +32,7 @@ endif
 if libtype != 'static'
   gst_controller_shared = shared_library('gstcontroller-@0@'.format(apiversion),
     gst_controller_sources,
-    c_args : ['-DHAVE_CONFIG_H'],
+    c_args : gst_c_args,
     install : true,
     version : libversion,
     soversion : soversion,

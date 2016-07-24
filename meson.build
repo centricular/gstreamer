@@ -254,6 +254,11 @@ build_gir = gir.found() and not meson.is_cross_build()
 gir_init_section = [ '--add-init-section=extern void gst_init(gint*,gchar**); gst_init(NULL,NULL);' ]
 vs_module_defs_dir = meson.source_root() + '/win32/common/'
 
+gst_c_args = ['-DHAVE_CONFIG_H']
+if libtype == 'static'
+  gst_c_args += ['-DGST_STATIC_COMPILATION']
+endif
+
 subdir('gst')
 subdir('libs')
 subdir('plugins')

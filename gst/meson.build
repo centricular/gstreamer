@@ -194,7 +194,7 @@ gstenum_c = custom_target('gstenum_c',
 subdir('parse')
 subdir('printf')
 
-gst_c_args = ['-DHAVE_CONFIG_H',
+libgst_c_args = gst_c_args + [
   '-D_GNU_SOURCE',
   '-DGST_EXPORTS',
   '-DG_LOG_DOMAIN=g_log_domain_gstreamer',
@@ -207,7 +207,7 @@ gst_c_args = ['-DHAVE_CONFIG_H',
 if libtype != 'shared'
   libgst_static = static_library('gstreamer-1.0', gst_sources, gst_trace_sources,
     gstenum_h, gstenum_c, grammar, parser, gst_registry,
-    c_args : [gst_c_args],
+    c_args : [libgst_c_args],
     include_directories : [configinc,
       # HACK, change include paths in .y and .l in final version.
       include_directories('parse')],
@@ -223,7 +223,7 @@ if libtype != 'static'
     gstenum_h, gstenum_c, grammar, parser, gst_registry,
     version : libversion,
     soversion : soversion,
-    c_args : gst_c_args,
+    c_args : libgst_c_args,
     include_directories : [configinc,
       # HACK, change include paths in .y and .l in final version.
       include_directories('parse')],

@@ -134,7 +134,7 @@ foreach t : core_tests
   endif
   if not skip_test
     exe = executable(test_name, '@0@.c'.format(test_name),
-      c_args : ['-DHAVE_CONFIG_H=1'] + test_defines,
+      c_args : gst_c_args + test_defines,
       include_directories : [configinc],
       dependencies : glib_deps + gst_deps,
     )
@@ -146,14 +146,14 @@ endforeach
 
 if have_registry
   test('gstcpp', executable('gstcpp', 'gst/gstcpp.cc',
-    cpp_args : ['-DHAVE_CONFIG_H=1'] + test_defines,
+    cpp_args : gst_c_args + test_defines,
     include_directories : [configinc],
     dependencies : glib_deps + gst_deps),
     env: test_env + ['GST_REGISTRY=@0@/gstcpp.registry'.format(meson.current_build_dir())])
 endif
 
 test('gstlibscpp', executable('gstlibscpp', 'libs/gstlibscpp.cc',
-    cpp_args : ['-DHAVE_CONFIG_H=1'],
+    cpp_args : gst_c_args,
     include_directories : [configinc],
     dependencies : glib_deps + gst_deps),
     env: test_env + ['GST_REGISTRY=@0@/gstlibscpp.registry'.format(meson.current_build_dir())])

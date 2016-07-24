@@ -1,5 +1,3 @@
-gst_c_args = ['-DHAVE_CONFIG_H']
-
 executable('gst-inspect-1.0',
   'gst-inspect.c',
   install: true,

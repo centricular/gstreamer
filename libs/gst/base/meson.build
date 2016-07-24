@@ -36,7 +36,7 @@ gst_base_headers = [
 if libtype != 'shared'
   gst_base_static = static_library('gstbase-@0@'.format(apiversion),
     gst_base_sources,
-    c_args : ['-DHAVE_CONFIG_H'],
+    c_args : gst_c_args,
     install : true,
     include_directories : [configinc, libsinc],
     dependencies : [gobject_dep, glib_dep, gst_dep],
@@ -47,7 +47,7 @@ endif
 if libtype != 'static'
   gst_base_shared = shared_library('gstbase-@0@'.format(apiversion),
     gst_base_sources,
-    c_args : ['-DHAVE_CONFIG_H'],
+    c_args : gst_c_args,
     version : libversion,
     soversion : soversion,
     install : true,

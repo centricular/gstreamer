@@ -7,14 +7,13 @@ printf_sources = [
   'printf-extension.c',
 ]
 
-printf_args = [
+printf_args = gst_c_args + [
 #  '-UHAVE_LONG_DOUBLE',
 #  '-UHAVE_LONG_LONG_FORMAT',
 #  ' -UHAVE_WCHAR_T',
 #  '-UHAVE_WCSLEN',
 #  '-UHAVE_WINT_T',
   '-DSTATIC=G_GNUC_INTERNAL',
-  '-DHAVE_CONFIG_H=1',
 ]
 
 printf_lib = static_library('gstprintf',

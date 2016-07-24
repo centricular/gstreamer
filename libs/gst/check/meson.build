@@ -36,6 +36,7 @@ configure_file(input : 'libcheck/check.h.in',
 
 gst_check = shared_library('gstcheck',
   gst_check_sources,
+  c_args : gst_c_args,
   include_directories : [configinc, libsinc],
   link_with : [libcheck],
   dependencies : [gobject_dep, glib_dep, gst_dep],

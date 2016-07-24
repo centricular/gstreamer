@@ -23,7 +23,7 @@ install_headers(gst_net_headers, subdir : 'gstreamer-1.0/gst/net/')
 if libtype != 'shared'
   gst_net_static = static_library('gstnet-@0@'.format(apiversion),
     gst_net_sources,
-    c_args : ['-DHAVE_CONFIG_H'],
+    c_args : gst_c_args,
     include_directories : [configinc, libsinc],
     install : true,
     dependencies : [gobject_dep, gio_dep, glib_dep, gst_dep, gst_base_dep],
@@ -34,7 +34,7 @@ endif
 if libtype != 'static'
   gst_net_shared = shared_library('gstnet-@0@'.format(apiversion),
     gst_net_sources,
-    c_args : ['-DHAVE_CONFIG_H'],
+    c_args : gst_c_args,
     include_directories : [configinc, libsinc],
     version : libversion,
     soversion : soversion,
