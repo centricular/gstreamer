@@ -40,6 +40,7 @@ core_tests = [
   [ 'gst/gstquery', not have_registry ],
   [ 'gst/gstregistry', not have_registry ],
   [ 'gst/gstsegment' ],
+  [ 'gst/gststream' ],
   [ 'gst/gststructure' ],
   [ 'gst/gstsystemclock' ],
   [ 'gst/gsttag' ],
