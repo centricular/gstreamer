@@ -170,17 +170,7 @@ configure_file(input : 'gstversion.h.in',
 
 mkenums = find_program('build_mkenum.py')
 perl = find_program('perl')
-
-if host_machine.system() == 'windows'
-  # On Windows, we can only find glib-mkenums if it has an extension and if that
-  # extension is in the PATHEXT environment variable. Windows does not have
-  # "executable bit" and does not read shebangs. So, glib needs to install the
-  # tool with the appropriate extension (.pl, .py, etc). The only exceptions are
-  # .com and .exe files.
-  glib_mkenums = find_program('glib-mkenums.pl')
-else
-  glib_mkenums = find_program('glib-mkenums')
-endif
+glib_mkenums = find_program('glib-mkenums')
 
 gstenum_h = custom_target('gstenum_h',
   output : 'gstenumtypes.h',

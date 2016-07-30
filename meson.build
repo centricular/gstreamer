@@ -1,6 +1,6 @@
 project('gstreamer', 'c', 'cpp',
   version : '1.9.1.1',
-  meson_version : '>= 0.32.0',
+  meson_version : '>= 0.33.0',
   default_options : [ 'warning_level=1',
                       'c_std=gnu99',
                       'buildtype=debugoptimized' ])
