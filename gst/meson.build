@@ -253,6 +253,7 @@ endif
 
 gst_dep = declare_dependency(link_with : libgst,
   include_directories : [configinc],
+  dependencies : [glib_dep, gobject_dep, gmodule_dep],
   # Everything that uses libgst needs this built to compile
   sources : [gstenum_h],
 )

@@ -75,7 +75,7 @@ endif
 
 gst_base_dep = declare_dependency(link_with : gst_base,
   include_directories : [libsinc],
-)
+  dependencies : [gst_dep])
 
 install_headers('base.h',
   'gstadapter.h',

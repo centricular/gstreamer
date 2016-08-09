@@ -60,4 +60,4 @@ endif
 
 gst_controller_dep = declare_dependency(link_with : gst_controller,
   include_directories : [libsinc],
-)
+  dependencies : [gst_dep])

@@ -26,7 +26,7 @@ if libtype != 'shared'
     c_args : gst_c_args,
     include_directories : [configinc, libsinc],
     install : true,
-    dependencies : [gobject_dep, gio_dep, glib_dep, gst_dep, gst_base_dep],
+    dependencies : [gio_dep, gst_base_dep],
   )
   gst_net = gst_net_static
 endif
@@ -39,7 +39,7 @@ if libtype != 'static'
     version : libversion,
     soversion : soversion,
     install : true,
-    dependencies : [gobject_dep, gio_dep, glib_dep, gst_dep, gst_base_dep],
+    dependencies : [gio_dep, gst_base_dep],
     vs_module_defs: vs_module_defs_dir + 'libgstnet.def',
   )
   gst_net = gst_net_shared
@@ -62,4 +62,4 @@ endif
 
 gst_net_dep = declare_dependency(link_with : gst_net,
   include_directories : [libsinc],
-)
+  dependencies : [gst_dep])

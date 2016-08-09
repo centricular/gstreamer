@@ -42,4 +42,6 @@ gst_check = shared_library('gstcheck',
   dependencies : [gobject_dep, glib_dep, gst_dep],
 )
 
-gst_check_dep = declare_dependency(link_with : gst_check)
+gst_check_dep = declare_dependency(link_with : gst_check,
+  include_directories : [libsinc],
+  dependencies : [gst_dep])
