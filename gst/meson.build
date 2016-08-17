@@ -169,7 +169,6 @@ configure_file(input : 'gstversion.h.in',
   configuration : cdata)
 
 mkenums = find_program('build_mkenum.py')
-perl = find_program('perl')
 glib_mkenums = find_program('glib-mkenums')
 
 gstenum_h = custom_target('gstenum_h',
@@ -177,13 +176,13 @@ gstenum_h = custom_target('gstenum_h',
   input : gst_headers,
   install : true,
   install_dir : 'include/gstreamer-1.0/gst',
-  command : [mkenums, perl, glib_mkenums, '@OUTPUT@', '@INPUT@'])
+  command : [mkenums, glib_mkenums, '@OUTPUT@', '@INPUT@'])
 
 gstenum_c = custom_target('gstenum_c',
   output : 'gstenumtypes.c',
   input : gst_headers,
   depends : [gstenum_h],
-  command : [mkenums, perl, glib_mkenums, '@OUTPUT@', '@INPUT@'])
+  command : [mkenums, glib_mkenums, '@OUTPUT@', '@INPUT@'])
 
 subdir('parse')
 subdir('printf')
